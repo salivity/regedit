@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Desktop Icon Spacing for All Users in Regedit - regedit</title>
+    <meta name="description" content="This guide explains how Windows administrators can configure custom horizontal and vertical desktop icon spacing for all interactive accounts using the Windows Registry Editor (Regedit). By modifying the IconSpacing and IconVerticalSpacing values across">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/set-desktop-icon-spacing-for-all-users-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Set Desktop Icon Spacing for All Users in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/set-desktop-icon-spacing-for-all-users-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how Windows administrators can configure custom horizontal and vertical desktop icon spacing for all interactive accounts using the Windows Registry Editor (Regedit). By modifying the IconSpacing and IconVerticalSpacing values across" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="set-desktop-icon-spacing-for-all-users-in-regedit">Set Desktop
+Icon Spacing for All Users in Regedit</h1>
+<p>This guide explains how Windows administrators can configure custom
+horizontal and vertical desktop icon spacing for all interactive
+accounts using the Windows Registry Editor (Regedit). By modifying the
+<code>IconSpacing</code> and <code>IconVerticalSpacing</code> values
+across the default profile and active user hives, administrators can
+ensure a uniform desktop layout for both existing and newly created user
+accounts.</p>
+<h3 id="understanding-desktop-icon-spacing-values">Understanding Desktop
+Icon Spacing Values</h3>
+<p>Desktop icon spacing is controlled by two string values located in
+the <code>Control Panel\Desktop\WindowMetrics</code> registry key:</p>
+<ul>
+<li><strong>IconSpacing:</strong> Controls horizontal spacing between
+desktop icons.</li>
+<li><strong>IconVerticalSpacing:</strong> Controls vertical spacing
+between desktop icons.</li>
+</ul>
+<p>The values are calculated in twips using negative integers. The
+standard default value is <code>-1125</code>. The valid range extends
+from <code>-480</code> (minimum spacing) to <code>-2730</code> (maximum
+spacing). The formula to determine twips from pixels is:</p>
+<p><span class="math display">\[\text{Value} = \text{Pixels} \times
+-15\]</span></p>
+<hr />
+<h3 id="step-1-configure-settings-for-new-user-accounts">Step 1:
+Configure Settings for New User Accounts</h3>
+<p>To apply icon spacing to all future interactive user profiles, modify
+the Default User profile template.</p>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor with administrative
+privileges.</li>
+<li>Select the <code>HKEY_USERS</code> key in the left pane.</li>
+<li>Click <strong>File</strong> &gt; <strong>Load Hive...</strong> in
+the top menu.</li>
+<li>Navigate to <code>C:\Users\Default</code> (ensure hidden files are
+visible) and select <code>NTUSER.DAT</code>.</li>
+<li>Name the loaded key <code>DefaultUser</code>.</li>
+<li>Navigate to:
+<pre><code>HKEY_USERS\DefaultUser\Control Panel\Desktop\WindowMetrics</code></pre></li>
+<li>Double-click <strong>IconSpacing</strong> and enter your desired
+custom value (e.g., <code>-1500</code>).</li>
+<li>Double-click <strong>IconVerticalSpacing</strong> and enter your
+desired custom value (e.g., <code>-1500</code>).</li>
+<li>Click the <code>DefaultUser</code> root key under
+<code>HKEY_USERS</code>.</li>
+<li>Click <strong>File</strong> &gt; <strong>Unload Hive...</strong> and
+confirm by clicking <strong>Yes</strong>.</li>
+</ol>
+<hr />
+<h3 id="step-2-configure-settings-for-existing-user-accounts">Step 2:
+Configure Settings for Existing User Accounts</h3>
+<p>For users who have already logged into the system, update their
+respective hives under <code>HKEY_USERS</code>.</p>
+<ol type="1">
+<li>In the Registry Editor, expand <code>HKEY_USERS</code>.</li>
+<li>Locate the security identifier (SID) corresponding to each
+interactive account (avoiding keys ending in <code>_Classes</code> or
+built-in system SIDs like <code>.DEFAULT</code>, <code>S-1-5-18</code>,
+<code>S-1-5-19</code>, or <code>S-1-5-20</code>).</li>
+<li>For each active user SID, navigate to:
+<pre><code>HKEY_USERS\&lt;User-SID&gt;\Control Panel\Desktop\WindowMetrics</code></pre></li>
+<li>Set the <strong>IconSpacing</strong> and
+<strong>IconVerticalSpacing</strong> strings to your target values.</li>
+</ol>
+<p><em>Note: For the currently logged-in administrator account, the same
+values can be modified directly under
+<code>HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics</code>.</em></p>
+<hr />
+<h3 id="step-3-apply-the-changes">Step 3: Apply the Changes</h3>
+<p>Registry changes to icon metrics do not apply instantaneously to
+active sessions. To enforce the new spacing:</p>
+<ol type="1">
+<li>Sign out of the affected user accounts and sign back in, or restart
+the computer.</li>
+<li>Alternatively, restart the Windows Explorer process via Task Manager
+or Command Prompt:
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>taskkill <span class="at">/f</span> <span class="at">/im</span> explorer.exe <span class="kw">&amp;&amp;</span> <span class="bu">start</span> explorer.exe</span></code></pre></div></li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

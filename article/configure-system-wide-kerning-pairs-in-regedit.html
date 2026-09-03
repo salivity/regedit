@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure System-Wide Kerning Pairs in Regedit - regedit</title>
+    <meta name="description" content="This article explores the relationship between the Windows Registry (regedit) and TrueType typography, specifically addressing how system-wide kerning pairs are handled across the operating system. You will learn about the structural limitations of the W">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/configure-system-wide-kerning-pairs-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Configure System-Wide Kerning Pairs in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/configure-system-wide-kerning-pairs-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores the relationship between the Windows Registry (regedit) and TrueType typography, specifically addressing how system-wide kerning pairs are handled across the operating system. You will learn about the structural limitations of the W" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="configure-system-wide-kerning-pairs-in-regedit">Configure
+System-Wide Kerning Pairs in Regedit</h1>
+<p>This article explores the relationship between the Windows Registry
+(<code>regedit</code>) and TrueType typography, specifically addressing
+how system-wide kerning pairs are handled across the operating system.
+You will learn about the structural limitations of the Windows Registry
+regarding font metric adjustments, where kerning data is natively
+stored, and the proper methods for deploying custom typographic kerning
+to Windows environments.</p>
+<hr />
+<h3 id="does-a-registry-parameter-exist-for-kerning-pairs">Does a
+Registry Parameter Exist for Kerning Pairs?</h3>
+<p>There is <strong>no registry parameter</strong> in Windows that
+allows an administrator to configure, add, or override system-wide
+kerning pairs for TrueType fonts.</p>
+<p>Windows does not expose kerning tables or pair-adjustment metrics
+through the Registry because font metrics are designed to be immutable
+at the operating system configuration level. Instead, kerning logic is
+handled directly by typography APIs—such as Microsoft DirectWrite,
+Uniscribe, or legacy GDI—which read metrics natively embedded inside
+font binaries.</p>
+<hr />
+<h3 id="where-truetype-kerning-data-resides">Where TrueType Kerning Data
+Resides</h3>
+<p>Kerning instructions are built directly into the compiled font file
+(<code>.ttf</code> or <code>.otf</code>) rather than the operating
+system settings:</p>
+<ul>
+<li><strong>The <code>kern</code> Table:</strong> Legacy TrueType fonts
+contain a dedicated <code>kern</code> table that lists specific
+character pairs and their designated spacing offsets.</li>
+<li><strong>The <code>GPOS</code> (Glyph Positioning) Table:</strong>
+Modern OpenType and TrueType fonts use the <code>GPOS</code> table to
+handle advanced kerning, optical adjustments, and contextual pair
+positioning.</li>
+</ul>
+<p>When an application requests text rendering, the layout engine
+queries these internal font tables. If a font lacks specific kerning
+pairs, the Windows text subsystem cannot inject new pairs via the
+Registry.</p>
+<hr />
+<h3 id="common-font-related-registry-keys">Common Font-Related Registry
+Keys</h3>
+<p>While you cannot modify kerning pairs, the Windows Registry does
+offer keys for managing font availability, substitution, and fallback
+behavior under the following path:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\</code></p>
+<ul>
+<li><strong><code>\Fonts</code></strong>: Registers installed system
+fonts and maps font family names to specific font files.</li>
+<li><strong><code>\FontSubstitutes</code></strong>: Defines string-based
+font substitutions (e.g., mapping <code>Helvetica</code> to
+<code>Arial</code>).</li>
+<li><strong><code>\FontLink\SystemLink</code></strong>: Configures
+fallback fonts for character sets not supported by the primary
+font.</li>
+</ul>
+<hr />
+<h3 id="how-to-apply-custom-kerning-system-wide">How to Apply Custom
+Kerning System-Wide</h3>
+<p>To achieve custom kerning pairs across an entire system or
+organization, administrators must modify and deploy the font file
+itself:</p>
+<ol type="1">
+<li><strong>Edit the Font Binary:</strong> Open the custom TrueType font
+in a font editor (such as FontForge, Glyphs, or FontLab) and adjust the
+<code>kern</code> or <code>GPOS</code> tables with the desired pair
+metrics.</li>
+<li><strong>Recompile the Font:</strong> Export the updated typeface as
+a valid <code>.ttf</code> or <code>.otf</code> file.</li>
+<li><strong>Deploy via Group Policy or Intune:</strong> Distribute the
+updated font file to target machines and register it in
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</code>.</li>
+<li><strong>Leverage Application-Level Settings:</strong> Ensure target
+applications (such as Microsoft Office, Adobe Creative Cloud, or web
+browsers) have kerning enabled, as some software disables pair kerning
+below specific point sizes by default.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

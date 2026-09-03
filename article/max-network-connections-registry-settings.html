@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Network Connections Registry Settings - regedit</title>
+    <meta name="description" content="Windows manages network connection limits across different layers of the operating system, ranging from system-wide TCP/IP sockets to application-level HTTP requests. This guide details the specific Windows Registry entries used in Regedit to control the">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/max-network-connections-registry-settings">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Max Network Connections Registry Settings - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/max-network-connections-registry-settings" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows manages network connection limits across different layers of the operating system, ranging from system-wide TCP/IP sockets to application-level HTTP requests. This guide details the specific Windows Registry entries used in Regedit to control the" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="max-network-connections-registry-settings">Max Network
+Connections Registry Settings</h1>
+<p>Windows manages network connection limits across different layers of
+the operating system, ranging from system-wide TCP/IP sockets to
+application-level HTTP requests. This guide details the specific Windows
+Registry entries used in Regedit to control the maximum number of
+simultaneous network connections, outlines their exact registry paths,
+and explains how to configure them.</p>
+<hr />
+<h3 id="1-system-wide-tcp-connections-tcpnumconnections">1. System-Wide
+TCP Connections (<code>TcpNumConnections</code>)</h3>
+<p>The primary registry entry that governs the maximum number of
+simultaneous TCP connections that the TCP/IP stack can open at once is
+<strong><code>TcpNumConnections</code></strong>.</p>
+<ul>
+<li><strong>Registry Path:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</code></li>
+<li><strong>Value Name:</strong> <code>TcpNumConnections</code></li>
+<li><strong>Data Type:</strong> <code>REG_DWORD</code> (32-bit
+Value)</li>
+<li><strong>Default Value:</strong> <code>16,777,214</code>
+(Hexadecimal: <code>0x00FFFFFE</code>)</li>
+<li><strong>Function:</strong> Sets the absolute maximum limit of
+concurrent active TCP connections. Setting this value lower limits
+concurrent network traffic, while setting it to the default maximum
+effectively allows the system to utilize all available resources.</li>
+</ul>
+<hr />
+<h3 id="2-maximum-outbound-ports-maxuserport">2. Maximum Outbound Ports
+(<code>MaxUserPort</code>)</h3>
+<p>When applications establish numerous outbound connections, they can
+run out of ephemeral ports. The
+<strong><code>MaxUserPort</code></strong> entry controls the maximum
+port number Windows can assign for outbound user sockets.</p>
+<ul>
+<li><strong>Registry Path:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</code></li>
+<li><strong>Value Name:</strong> <code>MaxUserPort</code></li>
+<li><strong>Data Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Default Value:</strong> Typically <code>5000</code> (legacy)
+or <code>49152–65535</code> range (modern Windows)</li>
+<li><strong>Recommended Maximum:</strong> <code>65534</code>
+(Decimal)</li>
+<li><strong>Function:</strong> Increases the range of available client
+ports to prevent connection exhaustion during heavy network
+workloads.</li>
+</ul>
+<hr />
+<h3 id="3-web-and-http-connection-limits-maxconnectionsperserver">3. Web
+and HTTP Connection Limits (<code>MaxConnectionsPerServer</code>)</h3>
+<p>For web traffic handled via the Windows Internet (WinINet) API and
+Windows services, HTTP connection limits to a single web host are
+controlled by two distinct registry keys.</p>
+<ul>
+<li><strong>Registry Path:</strong><br />
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings</code><br />
+<em>(Or system-wide:
+<code>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings</code>)</em></li>
+<li><strong>Value Names:</strong>
+<ul>
+<li><code>MaxConnectionsPerServer</code> (Controls HTTP 1.1
+connections)</li>
+<li><code>MaxConnectionsPer1_0Server</code> (Controls HTTP 1.0
+connections)</li>
+</ul></li>
+<li><strong>Data Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Default Values:</strong> <code>2</code> to <code>6</code>
+(depending on the Windows version)</li>
+<li><strong>Common Tweaked Values:</strong> <code>10</code> or
+<code>16</code> (Decimal)</li>
+<li><strong>Function:</strong> Determines how many simultaneous
+connections a browser or client application can maintain with a single
+web server.</li>
+</ul>
+<hr />
+<h3 id="how-to-modify-these-entries-in-regedit">How to Modify These
+Entries in Regedit</h3>
+<ol type="1">
+<li>Press <strong>Win + R</strong>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</li>
+<li>Navigate to the relevant registry path specified above.</li>
+<li>Check if the value name exists in the right pane:
+<ul>
+<li>If it exists, double-click it.</li>
+<li>If it does not exist, right-click an empty space, select <strong>New
+&gt; DWORD (32-bit) Value</strong>, and name it exactly as listed.</li>
+</ul></li>
+<li>Set the <strong>Base</strong> to <strong>Decimal</strong>, enter
+your desired value, and click <strong>OK</strong>.</li>
+<li>Restart your computer for the changes to take effect.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

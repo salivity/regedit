@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry Key for Windows Defender ASR Rules - regedit</title>
+    <meta name="description" content="Attack Surface Reduction (ASR) rules in Windows Defender Exploit Guard help prevent common malware infection vectors. This article identifies the exact Windows Registry paths used to configure and enforce ASR rules, explains how specific rule IDs (GUIDs)">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/registry-key-for-windows-defender-asr-rules">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Registry Key for Windows Defender ASR Rules - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/registry-key-for-windows-defender-asr-rules" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Attack Surface Reduction (ASR) rules in Windows Defender Exploit Guard help prevent common malware infection vectors. This article identifies the exact Windows Registry paths used to configure and enforce ASR rules, explains how specific rule IDs (GUIDs)" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="registry-key-for-windows-defender-asr-rules">Registry Key for
+Windows Defender ASR Rules</h1>
+<p>Attack Surface Reduction (ASR) rules in Windows Defender Exploit
+Guard help prevent common malware infection vectors. This article
+identifies the exact Windows Registry paths used to configure and
+enforce ASR rules, explains how specific rule IDs (GUIDs) map to
+registry values, and breaks down the numerical state codes required to
+manage blocking, auditing, and warning modes.</p>
+<hr />
+<h3 id="the-primary-asr-registry-keys">The Primary ASR Registry
+Keys</h3>
+<p>The behavior of Attack Surface Reduction rules is primarily
+controlled through two registry locations depending on whether the
+configuration is enforced via policy or stored locally.</p>
+<p><strong>Policy-Enforced Key:</strong></p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</code></pre>
+<p><strong>Local/Applied Key:</strong></p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules</code></pre>
+<hr />
+<h3 id="how-asr-rules-are-structured-in-regedit">How ASR Rules Are
+Structured in Regedit</h3>
+<p>Within the <code>...\ASR\Rules</code> key, individual rules are
+configured as distinct registry values:</p>
+<ul>
+<li><strong>Value Name:</strong> The specific ASR Rule GUID (e.g.,
+<code>d4f940ab-401b-4efc-aadc-ad5f3c50688a</code> for blocking
+credential stealing from the Windows local security authority
+subsystem).</li>
+<li><strong>Value Type:</strong> <code>REG_SZ</code> (String) or
+<code>REG_DWORD</code></li>
+<li><strong>Value Data:</strong> A numerical value that determines the
+enforcement state of the rule.</li>
+</ul>
+<hr />
+<h3 id="asr-rule-state-values">ASR Rule State Values</h3>
+<p>When configuring values under the <code>Rules</code> key, use the
+following integers to set the behavior for each rule GUID:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Enforcement State</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;">Disabled</td>
+<td style="text-align: left;">The rule is turned off and performs no
+action.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;">Block</td>
+<td style="text-align: left;">The rule is active and immediately blocks
+matching behaviors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;">Audit</td>
+<td style="text-align: left;">Actions are not blocked, but events are
+logged to the Windows Event Log.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6</strong></td>
+<td style="text-align: left;">Warn</td>
+<td style="text-align: left;">The user is prompted with a warning dialog
+allowing them to bypass the block.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="related-asr-registry-keys">Related ASR Registry Keys</h3>
+<p>To manage exclusions alongside ASR rules, Windows Defender utilizes a
+dedicated exclusions subkey:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Exclusions</code></pre>
+<ul>
+<li><strong>Value Name:</strong> The full path to the excluded
+executable or folder.</li>
+<li><strong>Value Type:</strong> <code>REG_SZ</code> or
+<code>REG_DWORD</code></li>
+<li><strong>Value Data:</strong> <code>0</code> (enables the
+exclusion).</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

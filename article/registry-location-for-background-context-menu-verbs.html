@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry Location for Background Context Menu Verbs - regedit</title>
+    <meta name="description" content="When you right-click on an empty space inside a folder window or on the Windows Desktop, the operating system generates a context menu populated by registered system shell verbs. This guide outlines the exact registry paths within the Windows Registry Ed">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/registry-location-for-background-context-menu-verbs">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Registry Location for Background Context Menu Verbs - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/registry-location-for-background-context-menu-verbs" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When you right-click on an empty space inside a folder window or on the Windows Desktop, the operating system generates a context menu populated by registered system shell verbs. This guide outlines the exact registry paths within the Windows Registry Ed" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="registry-location-for-background-context-menu-verbs">Registry
+Location for Background Context Menu Verbs</h1>
+<p>When you right-click on an empty space inside a folder window or on
+the Windows Desktop, the operating system generates a context menu
+populated by registered system shell verbs. This guide outlines the
+exact registry paths within the Windows Registry Editor
+(<code>regedit.exe</code>) where these background-specific shell verbs
+and handlers are cataloged, organized by static commands and dynamic COM
+extensions for both standard directory backgrounds and the desktop.</p>
+<h3 id="primary-registry-paths-for-directory-backgrounds">Primary
+Registry Paths for Directory Backgrounds</h3>
+<p>For standard folders in File Explorer, the verbs that appear when
+clicking the empty background space are cataloged under the following
+registry keys:</p>
+<ul>
+<li><p><strong>Static Shell Verbs:</strong><br />
+<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code><br />
+This key stores static command verbs (such as user-created shortcuts or
+native options like "Open in Terminal"). Each subkey represents a
+visible menu entry, which contains a nested <code>command</code> key
+specifying the executable path and parameters.</p></li>
+<li><p><strong>Dynamic Shell Extensions:</strong><br />
+<code>HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers</code><br />
+This key contains dynamic verbs registered by third-party applications
+or system components using COM CLSIDs (Class IDs) to build context menu
+items programmatically.</p></li>
+</ul>
+<h3 id="primary-registry-paths-for-desktop-backgrounds">Primary Registry
+Paths for Desktop Backgrounds</h3>
+<p>The Windows Desktop uses specialized keys in addition to inheriting
+properties from the general directory background:</p>
+<ul>
+<li><p><strong>Desktop Static Verbs:</strong><br />
+<code>HKEY_CLASSES_ROOT\DesktopBackground\shell</code><br />
+Contains static items dedicated exclusively to the desktop background,
+such as "Display settings" and "Personalize".</p></li>
+<li><p><strong>Desktop Dynamic Handlers:</strong><br />
+<code>HKEY_CLASSES_ROOT\DesktopBackground\shellex\ContextMenuHandlers</code><br />
+Contains dynamic shell extensions targeting the desktop specifically
+(for example, graphics card control panels like NVIDIA or
+Intel).</p></li>
+</ul>
+<h3 id="scope-and-user-specific-locations">Scope and User-Specific
+Locations</h3>
+<p><code>HKEY_CLASSES_ROOT</code> is a merged view of machine-wide and
+user-specific settings. If you are configuring verbs for specific
+deployment scopes, the direct registry targets are:</p>
+<ul>
+<li><p><strong>System-Wide (All Users):</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\Background\shell</code><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\DesktopBackground\shell</code></p></li>
+<li><p><strong>Current User Only:</strong><br />
+<code>HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell</code><br />
+<code>HKEY_CURRENT_USER\Software\Classes\DesktopBackground\shell</code></p></li>
+</ul>
+<h3 id="structure-of-a-shell-verb-entry">Structure of a Shell Verb
+Entry</h3>
+<p>To register a standard static verb under any of the
+<code>\shell</code> keys:</p>
+<ol type="1">
+<li>Create a new subkey under <code>...\shell\</code> with your desired
+internal verb name (e.g., <code>CustomTool</code>).</li>
+<li>Set the <code>(Default)</code> string value of the key to the text
+that should appear in the context menu.</li>
+<li>Add an optional string value named <code>Icon</code> pointing to an
+<code>.ico</code> or <code>.exe</code> file to display an icon.</li>
+<li>Create a child subkey named <code>command</code>.</li>
+<li>Set the <code>(Default)</code> value of the <code>command</code> key
+to the command line string executed when selected (e.g.,
+<code>"C:\Path\To\App.exe" "%V"</code>).</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

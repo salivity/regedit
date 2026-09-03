@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable Custom Startup Sound for All Users with Regedit - regedit</title>
+    <meta name="description" content="Customizing the Windows startup sound across all user profiles requires configuring system-level policies and event sound paths within the Windows Registry. This guide provides administrators with the direct steps to enable the startup sound functionalit">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/enable-custom-startup-sound-for-all-users-with-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Enable Custom Startup Sound for All Users with Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/enable-custom-startup-sound-for-all-users-with-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Customizing the Windows startup sound across all user profiles requires configuring system-level policies and event sound paths within the Windows Registry. This guide provides administrators with the direct steps to enable the startup sound functionalit" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="enable-custom-startup-sound-for-all-users-with-regedit">Enable
+Custom Startup Sound for All Users with Regedit</h1>
+<p>Customizing the Windows startup sound across all user profiles
+requires configuring system-level policies and event sound paths within
+the Windows Registry. This guide provides administrators with the direct
+steps to enable the startup sound functionality, unhide the logon audio
+event, and apply a custom <code>.wav</code> sound file for all existing
+and new user accounts using the Registry Editor
+(<code>regedit.exe</code>).</p>
+<h2 id="step-1-enable-the-startup-sound-in-the-registry">Step 1: Enable
+the Startup Sound in the Registry</h2>
+<p>By default, modern Windows versions may disable startup sound
+playback. To force the startup sound policy to be enabled
+system-wide:</p>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to launch the Registry Editor.</li>
+<li>Navigate to the following path:
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation</code></pre></li>
+<li>Locate the <code>DisableStartupSound</code> DWORD (32-bit) value. If
+it does not exist, right-click the <code>BootAnimation</code> key,
+select <strong>New &gt; DWORD (32-bit) Value</strong>, and name it
+<code>DisableStartupSound</code>.</li>
+<li>Double-click <code>DisableStartupSound</code> and set its
+<strong>Value data</strong> to <code>0</code>.</li>
+</ol>
+<h2 id="step-2-unhide-the-windows-logon-sound-event">Step 2: Unhide the
+Windows Logon Sound Event</h2>
+<p>Windows hides the "Windows Logon" sound setting from the Sound
+Control Panel by default. You can unhide it to enable audio file
+assignment:</p>
+<ol type="1">
+<li>In the Registry Editor, navigate to:
+<pre class="text"><code>HKEY_CURRENT_USER\AppEvents\EventLabels\WindowsLogon</code></pre></li>
+<li>Locate the <code>ExcludeFromCPL</code> DWORD value.</li>
+<li>Double-click <code>ExcludeFromCPL</code> and change its
+<strong>Value data</strong> from <code>1</code> to <code>0</code>.</li>
+</ol>
+<h2 id="step-3-assign-the-custom-startup-sound-file">Step 3: Assign the
+Custom Startup Sound File</h2>
+<p>To set the audio file that plays during logon:</p>
+<ol type="1">
+<li>Place your custom <code>.wav</code> audio file in a globally
+accessible directory, such as
+<code>C:\Windows\Media\custom-startup.wav</code>.</li>
+<li>Navigate to:
+<pre class="text"><code>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsLogon\.Current</code></pre></li>
+<li>Double-click the <code>(Default)</code> string value in the right
+pane.</li>
+<li>Enter the full path of your custom audio file (e.g.,
+<code>C:\Windows\Media\custom-startup.wav</code>) into the <strong>Value
+data</strong> field and click <strong>OK</strong>.</li>
+</ol>
+<h2 id="step-4-deploy-the-configuration-to-all-users">Step 4: Deploy the
+Configuration to All Users</h2>
+<p>To ensure the custom sound plays for all existing and future users on
+the machine:</p>
+<h3 id="for-new-users-default-profile">For New Users (Default
+Profile):</h3>
+<ol type="1">
+<li>In the Registry Editor, select <code>HKEY_USERS</code>.</li>
+<li>Click <strong>File &gt; Load Hive...</strong> and open
+<code>C:\Users\Default\NTUSER.DAT</code>.</li>
+<li>Name the loaded key <code>DefaultUser</code>.</li>
+<li>Navigate to:
+<pre class="text"><code>HKEY_USERS\DefaultUser\AppEvents\Schemes\Apps\.Default\WindowsLogon\.Current</code></pre></li>
+<li>Update the <code>(Default)</code> string value with the absolute
+path to your custom <code>.wav</code> file.</li>
+<li>Select <code>HKEY_USERS\DefaultUser</code>, click <strong>File &gt;
+Unload Hive...</strong>, and confirm.</li>
+</ol>
+<h3 id="for-existing-users">For Existing Users:</h3>
+<p>Apply the same registry change under each user's Security Identifier
+(SID) subkey located in
+<code>HKEY_USERS\&lt;User-SID&gt;\AppEvents\Schemes\Apps\.Default\WindowsLogon\.Current</code>,
+or deploy a <code>.reg</code> file containing the
+<code>HKEY_CURRENT_USER</code> modification via an administrative logon
+script.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

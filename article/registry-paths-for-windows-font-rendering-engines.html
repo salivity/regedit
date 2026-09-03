@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry Paths for Windows Font Rendering Engines - regedit</title>
+    <meta name="description" content="This article outlines the exact Windows Registry locations used by the operating system to configure system-wide font outline rendering engines, including GDI Font Smoothing, ClearType, and DirectWrite (Avalon) graphics subsystems. Traditional Windows fo">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/registry-paths-for-windows-font-rendering-engines">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Registry Paths for Windows Font Rendering Engines - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/registry-paths-for-windows-font-rendering-engines" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article outlines the exact Windows Registry locations used by the operating system to configure system-wide font outline rendering engines, including GDI Font Smoothing, ClearType, and DirectWrite (Avalon) graphics subsystems. Traditional Windows fo" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="registry-paths-for-windows-font-rendering-engines">Registry
+Paths for Windows Font Rendering Engines</h1>
+<p>This article outlines the exact Windows Registry locations used by
+the operating system to configure system-wide font outline rendering
+engines, including GDI Font Smoothing, ClearType, and DirectWrite
+(Avalon) graphics subsystems.</p>
+<h3 id="1-gdi-and-global-font-smoothing-settings">1. GDI and Global Font
+Smoothing Settings</h3>
+<p>Traditional Windows font rasterization and system-level font
+smoothing parameters are primarily stored on a per-user basis, with
+system defaults mirroring the structure for the default profile.</p>
+<ul>
+<li><strong>Current User Path:</strong><br />
+<code>HKEY_CURRENT_USER\Control Panel\Desktop</code></li>
+<li><strong>System-Wide Default Path:</strong><br />
+<code>HKEY_USERS\.DEFAULT\Control Panel\Desktop</code></li>
+</ul>
+<p>Key configuration values located in these keys include:</p>
+<ul>
+<li><strong><code>FontSmoothing</code></strong> <em>(String)</em>:
+Controls whether font smoothing is active (<code>0</code> = Disabled,
+<code>2</code> = Enabled).</li>
+<li><strong><code>FontSmoothingType</code></strong> <em>(DWORD)</em>:
+Defines the smoothing method (<code>1</code> = Standard grayscale
+antialiasing, <code>2</code> = Subpixel ClearType).</li>
+<li><strong><code>FontSmoothingGamma</code></strong> <em>(DWORD)</em>:
+Sets the display gamma correction value (typically ranging between
+<code>1000</code> and <code>2200</code>).</li>
+<li><strong><code>FontSmoothingOrientation</code></strong>
+<em>(DWORD)</em>: Defines subpixel stripe layout (<code>0</code> = BGR,
+<code>1</code> = RGB).</li>
+</ul>
+<hr />
+<h3 id="2-directwrite-and-wpf-avalongraphics-rendering-engine">2.
+DirectWrite and WPF (Avalon.Graphics) Rendering Engine</h3>
+<p>Modern Windows UI frameworks (such as WPF and DirectWrite-based
+applications) query dedicated graphics subsystem keys to determine
+hardware-accelerated text outline rendering and subpixel geometry.</p>
+<ul>
+<li><strong>Machine-Wide Path:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Avalon.Graphics</code></li>
+<li><strong>User-Specific Path:</strong><br />
+<code>HKEY_CURRENT_USER\Software\Microsoft\Avalon.Graphics</code></li>
+</ul>
+<p>Under these hives, specific display monitors are identified by
+subkeys (e.g., <code>DISPLAY1</code>), containing the following tuning
+parameters:</p>
+<ul>
+<li><strong><code>ClearTypeLevel</code></strong> <em>(DWORD)</em>: The
+level of ClearType subpixel blending (<code>0</code> to
+<code>100</code>).</li>
+<li><strong><code>EnhancedContrastLevel</code></strong>
+<em>(DWORD)</em>: The degree of contrast enhancement applied to font
+outlines.</li>
+<li><strong><code>GammaLevel</code></strong> <em>(DWORD)</em>: Gamma
+correction level for Avalon text rasterization.</li>
+<li><strong><code>PixelGeometry</code></strong> <em>(DWORD)</em>:
+Physical subpixel arrangement (<code>0</code> = Flat/Grayscale,
+<code>1</code> = RGB, <code>2</code> = BGR).</li>
+<li><strong><code>TextContrastLevel</code></strong> <em>(DWORD)</em>:
+Additional contrast offset for text rendering algorithms.</li>
+</ul>
+<hr />
+<h3 id="3-font-drivers-and-subsystem-associations">3. Font Drivers and
+Subsystem Associations</h3>
+<p>For low-level font subsystem drivers, rasterizer parameters, and
+fallback associations, Windows uses additional hardware and driver-level
+registry paths:</p>
+<ul>
+<li><strong>Font Association and Code Pages:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FontAssoc</code></li>
+<li><strong>Font DPI Scaling Configurations:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontDPI</code></li>
+<li><strong>Registered System Outlines (TrueType /
+OpenType):</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</code></li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

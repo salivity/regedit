@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuning TCP/IP Stack Parameters Using Regedit - regedit</title>
+    <meta name="description" content="Optimizing the Windows TCP/IP stack through the Registry Editor (Regedit) allows you to reduce latency, increase throughput, and improve overall network responsiveness. By modifying low-level parameters, you can customize how the operating system handles">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/tuning-tcp-ip-stack-parameters-using-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tuning TCP/IP Stack Parameters Using Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/tuning-tcp-ip-stack-parameters-using-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Optimizing the Windows TCP/IP stack through the Registry Editor (Regedit) allows you to reduce latency, increase throughput, and improve overall network responsiveness. By modifying low-level parameters, you can customize how the operating system handles" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="tuning-tcpip-stack-parameters-using-regedit">Tuning TCP/IP Stack
+Parameters Using Regedit</h1>
+<p>Optimizing the Windows TCP/IP stack through the Registry Editor
+(Regedit) allows you to reduce latency, increase throughput, and improve
+overall network responsiveness. By modifying low-level parameters, you
+can customize how the operating system handles packet acknowledgement,
+data buffering, and connection states. This guide provides a
+straightforward walkthrough of the critical TCP/IP registry values to
+adjust for improved network performance.</p>
+<h3 id="accessing-the-tcpip-parameters-key">Accessing the TCP/IP
+Parameters Key</h3>
+<p>Before making changes, create a restore point or export a backup of
+your registry.</p>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong>.</li>
+<li>Navigate to the primary TCP/IP configuration path:
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</code></li>
+</ol>
+<p>To modify network-interface-specific parameters, navigate to the
+<strong>Interfaces</strong> subkey:
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces</code>
+Select the GUID folder that corresponds to your active network adapter
+(identifiable by checking the <code>DhcpIPAddress</code> or
+<code>IPAddress</code> entry).</p>
+<hr />
+<h3 id="key-tcpip-registry-parameters-to-configure">Key TCP/IP Registry
+Parameters to Configure</h3>
+<p>Unless specified otherwise, create these entries as <strong>DWORD
+(32-bit) Value</strong> types if they do not already exist.</p>
+<h4 id="1-disable-nagles-algorithm-tcpnodelay">1. Disable Nagle's
+Algorithm (<code>TCPNoDelay</code>)</h4>
+<p>Nagle’s algorithm bundles small packets together before sending them,
+which can introduce latency in time-sensitive applications like online
+gaming or VoIP.</p>
+<ul>
+<li><strong>Location:</strong>
+<code>...\Parameters\Interfaces\{Adapter-GUID}</code></li>
+<li><strong>Value Name:</strong> <code>TCPNoDelay</code></li>
+<li><strong>Value Data:</strong> <code>1</code> (Hexadecimal) — Disables
+Nagle's algorithm and sends packets immediately.</li>
+</ul>
+<h4 id="2-increase-acknowledgement-frequency-tcpackfrequency">2.
+Increase Acknowledgement Frequency (<code>TcpAckFrequency</code>)</h4>
+<p>By default, Windows waits to send an acknowledgement (ACK) for every
+two packets received. Setting this to 1 forces the system to send an ACK
+immediately for every packet, lowering response times.</p>
+<ul>
+<li><strong>Location:</strong>
+<code>...\Parameters\Interfaces\{Adapter-GUID}</code></li>
+<li><strong>Value Name:</strong> <code>TcpAckFrequency</code></li>
+<li><strong>Value Data:</strong> <code>1</code> (Hexadecimal)</li>
+</ul>
+<h4 id="3-optimize-the-time_wait-state-tcptimedwaitdelay">3. Optimize
+the TIME_WAIT State (<code>TcpTimedWaitDelay</code>)</h4>
+<p>When a connection closes, it remains in the <code>TIME_WAIT</code>
+state to ensure all pending packets are delivered. Reducing this
+duration frees up closed connection resources faster for high-traffic
+environments.</p>
+<ul>
+<li><strong>Location:</strong> <code>...\Parameters</code></li>
+<li><strong>Value Name:</strong> <code>TcpTimedWaitDelay</code></li>
+<li><strong>Value Data:</strong> <code>30</code> (Decimal) — Sets the
+wait time to 30 seconds (default is 120 to 240 seconds).</li>
+</ul>
+<h4 id="4-expand-available-dynamic-ports-maxuserport">4. Expand
+Available Dynamic Ports (<code>MaxUserPort</code>)</h4>
+<p>This parameter controls the maximum port number used when an
+application requests an available user port, preventing port exhaustion
+under heavy connection loads.</p>
+<ul>
+<li><strong>Location:</strong> <code>...\Parameters</code></li>
+<li><strong>Value Name:</strong> <code>MaxUserPort</code></li>
+<li><strong>Value Data:</strong> <code>65534</code> (Decimal) — Expands
+the dynamic port range up to port 65534.</li>
+</ul>
+<h4 id="5-adjust-the-default-time-to-live-defaultttl">5. Adjust the
+Default Time to Live (<code>DefaultTTL</code>)</h4>
+<p>The Time to Live (TTL) dictates how many hops a packet can take
+before being discarded. Optimizing this value prevents packets from
+lingering unnecessarily on the network.</p>
+<ul>
+<li><strong>Location:</strong> <code>...\Parameters</code></li>
+<li><strong>Value Name:</strong> <code>DefaultTTL</code></li>
+<li><strong>Value Data:</strong> <code>64</code> (Decimal) — Sets the
+standard optimal TTL for modern networks.</li>
+</ul>
+<hr />
+<h3 id="applying-the-changes">Applying the Changes</h3>
+<p>Registry modifications to the TCP/IP stack do not take effect
+immediately. Once you have configured the desired values:</p>
+<ol type="1">
+<li>Close the Registry Editor.</li>
+<li>Restart your computer to apply the new TCP/IP stack parameters.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Regedit Represents HKEY_LOCAL_MACHINE - regedit</title>
+    <meta name="description" content="This article provides an overview of how the Windows Registry Editor (Regedit) visually displays, organizes, and manages the HKEYLOCALMACHINE (HKLM) root key. It covers its graphical representation in the navigation pane, the underlying subkey architectu">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/how-regedit-represents-hkey-local-machine">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Regedit Represents HKEY_LOCAL_MACHINE - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/how-regedit-represents-hkey-local-machine" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of how the Windows Registry Editor (Regedit) visually displays, organizes, and manages the HKEYLOCALMACHINE (HKLM) root key. It covers its graphical representation in the navigation pane, the underlying subkey architectu" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-regedit-represents-hkey_local_machine">How Regedit
+Represents HKEY_LOCAL_MACHINE</h1>
+<p>This article provides an overview of how the Windows Registry Editor
+(Regedit) visually displays, organizes, and manages the
+<code>HKEY_LOCAL_MACHINE</code> (HKLM) root key. It covers its graphical
+representation in the navigation pane, the underlying subkey
+architecture, and how these logical entries map to physical files and
+hardware data on the system.</p>
+<p>In the Windows Registry Editor (<code>regedit.exe</code>),
+<code>HKEY_LOCAL_MACHINE</code> is represented as one of the primary
+predefined root keys displayed in the hierarchical tree structure on the
+left-hand navigation pane. It appears as a expandable folder-like node
+labeled explicitly as <code>HKEY_LOCAL_MACHINE</code> (commonly
+abbreviated as HKLM in documentation and command-line tools).</p>
+<p>Selecting or expanding the <code>HKEY_LOCAL_MACHINE</code> node
+reveals several standardized subkeys that house configuration settings
+applicable to the local computer across all users:</p>
+<ul>
+<li><strong>BCD00000000 / BCD:</strong> Contains Boot Configuration
+Data.</li>
+<li><strong>HARDWARE:</strong> A volatile hive generated dynamically by
+the Windows kernel during boot that enumerates processor, memory, and
+bus device information.</li>
+<li><strong>SAM:</strong> Houses the Security Accounts Manager database
+for local user accounts and groups.</li>
+<li><strong>SECURITY:</strong> Stores local security policies and user
+rights assignments.</li>
+<li><strong>SOFTWARE:</strong> Contains machine-wide configuration
+parameters for the operating system and installed third-party
+applications.</li>
+<li><strong>SYSTEM:</strong> Contains system initialization data,
+hardware profiles, device driver configurations, and control sets.</li>
+</ul>
+<p>Behind the visual interface, Regedit does not store
+<code>HKEY_LOCAL_MACHINE</code> as a single monolithic file. Instead, it
+aggregates multiple separate physical binary files known as registry
+hives located on the disk, primarily inside the
+<code>C:\Windows\System32\config\</code> directory (such as
+<code>SYSTEM</code>, <code>SOFTWARE</code>, <code>SAM</code>, and
+<code>SECURITY</code>). Regedit maps these individual on-disk files
+alongside transient, memory-only data into a unified, navigable tree
+under the single <code>HKEY_LOCAL_MACHINE</code> root.</p>
+<p>Because <code>HKEY_LOCAL_MACHINE</code> dictates system-wide
+operational parameters, Regedit displays and protects sensitive subkeys
+like <code>SAM</code> and <code>SECURITY</code> by restricting access
+permissions. These keys will appear empty or inaccessible unless viewed
+with appropriate administrative or <code>SYSTEM</code> account
+privileges.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

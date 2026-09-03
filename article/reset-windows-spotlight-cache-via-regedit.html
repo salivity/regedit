@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Windows Spotlight Cache via Regedit - regedit</title>
+    <meta name="description" content="Windows Spotlight occasionally gets stuck on a single background or fails to download new lock screen images due to corrupted cache files and configuration keys. This guide provides a step-by-step method to clear the cached Windows Spotlight image assets">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/reset-windows-spotlight-cache-via-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Reset Windows Spotlight Cache via Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/reset-windows-spotlight-cache-via-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows Spotlight occasionally gets stuck on a single background or fails to download new lock screen images due to corrupted cache files and configuration keys. This guide provides a step-by-step method to clear the cached Windows Spotlight image assets" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="reset-windows-spotlight-cache-via-regedit">Reset Windows
+Spotlight Cache via Regedit</h1>
+<p>Windows Spotlight occasionally gets stuck on a single background or
+fails to download new lock screen images due to corrupted cache files
+and configuration keys. This guide provides a step-by-step method to
+clear the cached Windows Spotlight image assets from your system and
+reset the Spotlight rotator using the Windows Registry Editor (Regedit)
+to restore normal functionality.</p>
+<h2 id="step-1-temporarily-turn-off-windows-spotlight">Step 1:
+Temporarily Turn Off Windows Spotlight</h2>
+<ol type="1">
+<li>Open <strong>Settings</strong> by pressing
+<code>Windows + I</code>.</li>
+<li>Navigate to <strong>Personalization</strong> &gt; <strong>Lock
+screen</strong>.</li>
+<li>In the <strong>Personalize your lock screen</strong> dropdown menu,
+change the selection from <strong>Windows Spotlight</strong> to
+<strong>Picture</strong> or <strong>Solid color</strong>.</li>
+<li>Close the Settings app.</li>
+</ol>
+<h2 id="step-2-clear-cached-spotlight-image-assets">Step 2: Clear Cached
+Spotlight Image Assets</h2>
+<p>Before resetting the registry, delete the stored asset files and
+cached settings:</p>
+<ol type="1">
+<li>Press <code>Windows + R</code> to open the <strong>Run</strong>
+dialog.</li>
+<li>Paste the following path and press <strong>Enter</strong>:
+<code>%USERPROFILE%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets</code></li>
+<li>Select all files in this folder (<code>Ctrl + A</code>) and
+permanently delete them.</li>
+<li>Press <code>Windows + R</code> again, paste the following path, and
+press <strong>Enter</strong>:
+<code>%USERPROFILE%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\Settings</code></li>
+<li>Delete the files named <code>settings.dat</code> and
+<code>roaming.lock</code> if they exist in this folder.</li>
+</ol>
+<h2 id="step-3-reset-the-spotlight-rotator-in-regedit">Step 3: Reset the
+Spotlight Rotator in Regedit</h2>
+<ol type="1">
+<li>Press <code>Windows + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</li>
+<li>In the Registry Editor address bar, navigate to:
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager</code></li>
+<li>Locate the following DWORD (32-bit) values in the right pane and
+ensure their values are configured correctly (double-click each to
+change the <strong>Value data</strong>):
+<ul>
+<li><strong>RotatingLockScreenEnabled</strong>: Set to <code>1</code>
+(or change to <code>0</code>, click OK, and then change back to
+<code>1</code> to force a reset).</li>
+<li><strong>RotatingLockScreenOverlayEnabled</strong>: Set to
+<code>1</code>.</li>
+<li><strong>SubscribedContent-338387Enabled</strong>: Set to
+<code>1</code> (this controls the Spotlight lock screen feed).</li>
+<li><strong>ContentDeliveryAllowed</strong>: Set to <code>1</code>.</li>
+</ul></li>
+<li>If any of these DWORD values are missing, right-click an empty area
+in the right pane, select <strong>New</strong> &gt; <strong>DWORD
+(32-bit) Value</strong>, name it accordingly, and set its value to
+<code>1</code>.</li>
+<li>Close the Registry Editor.</li>
+</ol>
+<h2 id="step-4-re-enable-windows-spotlight-and-restart">Step 4:
+Re-enable Windows Spotlight and Restart</h2>
+<ol type="1">
+<li>Restart your computer to apply the registry and file system
+changes.</li>
+<li>After logging back in, open <strong>Settings</strong>
+(<code>Windows + I</code>).</li>
+<li>Go to <strong>Personalization</strong> &gt; <strong>Lock
+screen</strong>.</li>
+<li>Set the <strong>Personalize your lock screen</strong> dropdown back
+to <strong>Windows Spotlight</strong>.</li>
+<li>Lock your screen (<code>Windows + L</code>) to verify that a new
+Spotlight image has downloaded and loaded properly.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

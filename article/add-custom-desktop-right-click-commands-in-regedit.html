@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Custom Desktop Right-Click Commands in Regedit - regedit</title>
+    <meta name="description" content="You can customize the Windows desktop right-click context menu by adding shortcuts and custom commands directly through the Windows Registry Editor (Regedit). By creating specific keys under the desktop background registry path, you can launch applicatio">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/add-custom-desktop-right-click-commands-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Add Custom Desktop Right-Click Commands in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/add-custom-desktop-right-click-commands-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="You can customize the Windows desktop right-click context menu by adding shortcuts and custom commands directly through the Windows Registry Editor (Regedit). By creating specific keys under the desktop background registry path, you can launch applicatio" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="add-custom-desktop-right-click-commands-in-regedit">Add Custom
+Desktop Right-Click Commands in Regedit</h1>
+<p>You can customize the Windows desktop right-click context menu by
+adding shortcuts and custom commands directly through the Windows
+Registry Editor (Regedit). By creating specific keys under the desktop
+background registry path, you can launch applications, run scripts, or
+open tools with a single click.</p>
+<h2 id="the-desktop-context-menu-registry-paths">The Desktop Context
+Menu Registry Paths</h2>
+<p>To configure commands that appear specifically on the desktop context
+menu, use either of the following paths in Regedit:</p>
+<ul>
+<li><strong>Desktop Only:</strong><br />
+<code>HKEY_CLASSES_ROOT\DesktopBackground\Shell</code></li>
+<li><strong>Desktop and All Folder Backgrounds:</strong><br />
+<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code></li>
+</ul>
+<p>For changes that apply only to the currently logged-in user without
+requiring administrative privileges, use:</p>
+<ul>
+<li><code>HKEY_CURRENT_USER\Software\Classes\DesktopBackground\Shell</code></li>
+</ul>
+<hr />
+<h2 id="step-by-step-configuration">Step-by-Step Configuration</h2>
+<h3 id="1-open-the-registry-editor">1. Open the Registry Editor</h3>
+<p>Press <code>Windows Key + R</code>, type <code>regedit</code>, and
+press <strong>Enter</strong>.</p>
+<h3 id="2-navigate-to-the-shell-key">2. Navigate to the Shell Key</h3>
+<p>In the address bar at the top of the Registry Editor, paste the
+following path and press <strong>Enter</strong>:</p>
+<pre class="text"><code>HKEY_CLASSES_ROOT\DesktopBackground\Shell</code></pre>
+<h3 id="3-create-a-key-for-the-menu-item">3. Create a Key for the Menu
+Item</h3>
+<ol type="1">
+<li>Right-click on the <code>Shell</code> folder/key.</li>
+<li>Select <strong>New</strong> &gt; <strong>Key</strong>.</li>
+<li>Name this key what you want to appear in the right-click menu (for
+example, <code>Notepad</code> or <code>Command Prompt</code>).</li>
+</ol>
+<h3 id="4-create-the-command-subkey">4. Create the Command Subkey</h3>
+<ol type="1">
+<li>Right-click the newly created key (e.g., <code>Notepad</code>).</li>
+<li>Select <strong>New</strong> &gt; <strong>Key</strong>.</li>
+<li>Name this subkey strictly as <code>command</code> (all
+lowercase).</li>
+</ol>
+<h3 id="5-set-the-application-path">5. Set the Application Path</h3>
+<ol type="1">
+<li>Select the <code>command</code> key.</li>
+<li>In the right pane, double-click the <strong>(Default)</strong>
+string value.</li>
+<li>In the <strong>Value data</strong> field, enter the full path to the
+executable file (for example,
+<code>C:\Windows\System32\notepad.exe</code> or simply
+<code>notepad.exe</code> for system applications).</li>
+<li>Click <strong>OK</strong>.</li>
+</ol>
+<hr />
+<h2 id="optional-enhancements">Optional Enhancements</h2>
+<p>You can add additional string values inside your main application key
+(not inside the <code>command</code> key) to refine the menu item:</p>
+<ul>
+<li><strong>Add an Icon:</strong><br />
+Right-click your main key &gt; <strong>New</strong> &gt; <strong>String
+Value</strong>. Name it <code>Icon</code>. Set the value data to the
+path of the <code>.exe</code> or <code>.ico</code> file.</li>
+<li><strong>Change Menu Position:</strong><br />
+Create a <strong>String Value</strong> named <code>Position</code>. Set
+its value to either <code>Top</code> or <code>Bottom</code> to place the
+item at the top or bottom of the context menu.</li>
+</ul>
+<p>The changes take effect immediately without needing to restart
+Windows or File Explorer. Right-click any empty space on your desktop to
+see your new custom command.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

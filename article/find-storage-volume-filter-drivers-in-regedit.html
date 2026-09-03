@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Storage Volume Filter Drivers in Regedit - regedit</title>
+    <meta name="description" content="This article explains how to locate and inspect the active upper and lower filter drivers associated with storage volumes using the Windows Registry Editor (Regedit). In Windows, filter drivers intercept, monitor, or modify input/output requests sent to">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/find-storage-volume-filter-drivers-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Find Storage Volume Filter Drivers in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/find-storage-volume-filter-drivers-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how to locate and inspect the active upper and lower filter drivers associated with storage volumes using the Windows Registry Editor (Regedit). In Windows, filter drivers intercept, monitor, or modify input/output requests sent to" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="find-storage-volume-filter-drivers-in-regedit">Find Storage
+Volume Filter Drivers in Regedit</h1>
+<p>This article explains how to locate and inspect the active upper and
+lower filter drivers associated with storage volumes using the Windows
+Registry Editor (Regedit). In Windows, filter drivers intercept,
+monitor, or modify input/output requests sent to storage devices, and
+their system-wide registrations are organized under specific device
+class globally unique identifiers (GUIDs) in the system registry.</p>
+<h3 id="registry-location-for-storage-volume-filter-drivers">Registry
+Location for Storage Volume Filter Drivers</h3>
+<p>To inspect the class-level filter drivers configured for storage
+volumes, open the Registry Editor (<code>regedit.exe</code>) and
+navigate to the following key:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{71a270c8-ad83-410e-8622-0479e073a7c6}</code></pre>
+<p>The GUID <code>{71a270c8-ad83-410e-8622-0479e073a7c6}</code>
+represents the <strong>Volume</strong> device class in Windows.</p>
+<h3 id="values-to-inspect">Values to Inspect</h3>
+<p>Within this key, examine the following Multi-String
+(<code>REG_MULTI_SZ</code>) values in the right-hand pane:</p>
+<ul>
+<li><strong><code>UpperFilters</code></strong>: Lists drivers loaded
+above the primary volume functional device driver. Common examples
+include antivirus monitors, volume shadow copy drivers
+(<code>volsnap</code>), or encryption tools (such as BitLocker's
+<code>fvevol</code>).</li>
+<li><strong><code>LowerFilters</code></strong>: Lists drivers loaded
+beneath the functional driver and above the underlying disk device
+stack.</li>
+</ul>
+<p>If neither value exists, only the default Windows subsystem drivers
+handle the volume requests.</p>
+<h3 id="inspecting-specific-volume-device-instances">Inspecting Specific
+Volume Device Instances</h3>
+<p>If filter drivers are attached to specific volume instances rather
+than the entire device class, they are stored under the device
+enumeration keys:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\STORAGE\Volume</code></pre>
+<p>Expand the individual volume subkeys (identified by unique GUIDs) to
+locate device-specific <code>UpperFilters</code> or
+<code>LowerFilters</code> entries.</p>
+<h3 id="identifying-the-filter-driver-service">Identifying the Filter
+Driver Service</h3>
+<p>The entries listed inside <code>UpperFilters</code> and
+<code>LowerFilters</code> correspond to the service names of the
+installed drivers. To view the file path, startup type, and details of
+any listed driver, navigate to:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\&lt;DriverName&gt;</code></pre>
+<p>Replace <code>&lt;DriverName&gt;</code> with the exact string found
+in the filter list (for example, <code>volsnap</code> or
+<code>rdyboost</code>). The <code>ImagePath</code> value inside this key
+points directly to the <code>.sys</code> file executing on the
+system.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Windows High Contrast Mode Using Registry - regedit</title>
+    <meta name="description" content="This article explains how to programmatically enable or disable High Contrast mode in Windows by modifying specific keys in the Windows Registry. You will learn the exact Registry paths, the required flag values, and how to apply the changes immediately">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/toggle-windows-high-contrast-mode-using-registry">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Toggle Windows High Contrast Mode Using Registry - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/toggle-windows-high-contrast-mode-using-registry" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how to programmatically enable or disable High Contrast mode in Windows by modifying specific keys in the Windows Registry. You will learn the exact Registry paths, the required flag values, and how to apply the changes immediately" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="toggle-windows-high-contrast-mode-using-registry">Toggle Windows
+High Contrast Mode Using Registry</h1>
+<p>This article explains how to programmatically enable or disable High
+Contrast mode in Windows by modifying specific keys in the Windows
+Registry. You will learn the exact Registry paths, the required flag
+values, and how to apply the changes immediately using a script so that
+the operating system updates without requiring a reboot or logoff.</p>
+<h3 id="registry-location-and-values">Registry Location and Values</h3>
+<p>Windows stores the user settings for High Contrast in the current
+user hive:</p>
+<ul>
+<li><strong>Registry Path:</strong>
+<code>HKEY_CURRENT_USER\Control Panel\Accessibility\HighContrast</code></li>
+</ul>
+<p>The two primary values responsible for controlling High Contrast mode
+are:</p>
+<ol type="1">
+<li><p><strong><code>Flags</code> (Type: <code>REG_SZ</code>)</strong>:
+A string representing bit flags.</p>
+<ul>
+<li><strong>Disabled:</strong> <code>126</code> (Hex
+<code>0x7E</code>)</li>
+<li><strong>Enabled:</strong> <code>127</code> (Hex
+<code>0x7F</code>)</li>
+<li><em>Note:</em> The least significant bit (<code>0x00000001</code> or
+<code>HCF_HIGHCONTRASTON</code>) determines whether High Contrast is
+active.</li>
+</ul></li>
+<li><p><strong><code>High Contrast Scheme</code> (Type:
+<code>REG_SZ</code>)</strong>: The name of the color scheme to
+apply.</p>
+<ul>
+<li>Common values: <code>"High Contrast Black"</code>,
+<code>"High Contrast White"</code>, <code>"High Contrast #1"</code>, or
+<code>"High Contrast #2"</code>.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="modifying-the-registry-via-command-line">Modifying the Registry
+via Command Line</h3>
+<p>To enable High Contrast mode via the command prompt:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>reg add <span class="st">&quot;HKCU\Control Panel\Accessibility\HighContrast&quot;</span> <span class="at">/v</span> <span class="st">&quot;Flags&quot;</span> <span class="at">/t</span> REG_SZ <span class="at">/d</span> <span class="st">&quot;127&quot;</span> <span class="at">/f</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>reg add <span class="st">&quot;HKCU\Control Panel\Accessibility\HighContrast&quot;</span> <span class="at">/v</span> <span class="st">&quot;High Contrast Scheme&quot;</span> <span class="at">/t</span> REG_SZ <span class="at">/d</span> <span class="st">&quot;High Contrast Black&quot;</span> <span class="at">/f</span></span></code></pre></div>
+<p>To disable High Contrast mode:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reg add <span class="st">&quot;HKCU\Control Panel\Accessibility\HighContrast&quot;</span> <span class="at">/v</span> <span class="st">&quot;Flags&quot;</span> <span class="at">/t</span> REG_SZ <span class="at">/d</span> <span class="st">&quot;126&quot;</span> <span class="at">/f</span></span></code></pre></div>
+<hr />
+<h3 id="applying-changes-programmatically">Applying Changes
+Programmatically</h3>
+<p>Directly modifying Registry keys writes the data to disk, but Windows
+caches accessibility parameters in memory. To force Windows to read the
+updated Registry keys and apply the changes instantly, you must call the
+<code>SystemParametersInfo</code> Windows API with the
+<code>SPI_SETHIGHCONTRAST</code> (0x0043) action code.</p>
+<p>Below is a complete PowerShell script that alters the Registry values
+and triggers the immediate system refresh:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">$signature</span> <span class="op">=</span> <span class="vs">@&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="vs">[DllImport(&quot;user32.dll&quot;, SetLastError = true)]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="vs">public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, ref HIGHCONTRAST pvParam, uint fWinIni);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="vs">[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="vs">public struct HIGHCONTRAST {</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="vs">    public uint cbSize;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="vs">    public uint dwFlags;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="vs">    [MarshalAs(UnmanagedType.LPTStr)]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="vs">    public string lpszDefaultScheme;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="vs">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="vs">&quot;@</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="va">$type</span> <span class="op">=</span> <span class="fu">Add-Type</span> <span class="op">-</span>MemberDefinition <span class="va">$signature</span> <span class="op">-</span>Name <span class="st">&quot;Win32HighContrast&quot;</span> <span class="op">-</span>Namespace <span class="st">&quot;Accessibility&quot;</span> <span class="op">-</span>PassThru</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Set-HighContrast <span class="op">{</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">param</span> <span class="op">(</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="dt">bool</span><span class="op">]</span><span class="va">$Enable</span><span class="op">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="va">$Scheme</span> <span class="op">=</span> <span class="st">&quot;High Contrast Black&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="va">$regPath</span> <span class="op">=</span> <span class="st">&quot;HKCU:\Control Panel\Accessibility\HighContrast&quot;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 0x7F (127) for enabled, 0x7E (126) for disabled</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="va">$flags</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span><span class="va">$Enable</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;127&quot;</span> <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="st">&quot;126&quot;</span> <span class="op">}</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update the Registry</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Set-ItemProperty</span> <span class="op">-</span>Path <span class="va">$regPath</span> <span class="op">-</span>Name <span class="st">&quot;Flags&quot;</span> <span class="op">-</span>Value <span class="va">$flags</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span><span class="va">$Enable</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Set-ItemProperty</span> <span class="op">-</span>Path <span class="va">$regPath</span> <span class="op">-</span>Name <span class="st">&quot;High Contrast Scheme&quot;</span> <span class="op">-</span>Value <span class="va">$Scheme</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Broadcast system parameter change to apply immediately</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="va">$struct</span> <span class="op">=</span> <span class="fu">New-Object</span> Accessibility<span class="op">.</span><span class="fu">Win32HighContrast</span><span class="op">+</span>HIGHCONTRAST</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="va">$struct</span><span class="op">.</span><span class="fu">cbSize</span> <span class="op">=</span> <span class="op">[</span>System<span class="op">.</span><span class="fu">Runtime</span><span class="op">.</span><span class="fu">InteropServices</span><span class="op">.</span><span class="fu">Marshal</span><span class="op">]::</span>SizeOf<span class="op">(</span><span class="va">$struct</span><span class="op">)</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="va">$struct</span><span class="op">.</span><span class="fu">dwFlags</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span><span class="va">$Enable</span><span class="op">)</span> <span class="op">{</span> <span class="dv">0x00000001</span> <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="dv">0x00000000</span> <span class="op">}</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="va">$struct</span><span class="op">.</span><span class="fu">lpszDefaultScheme</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span><span class="va">$Enable</span><span class="op">)</span> <span class="op">{</span> <span class="va">$Scheme</span> <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="st">&quot;&quot;</span> <span class="op">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SPI_SETHIGHCONTRAST = 0x0043, SPIF_UPDATEINIFILE = 0x01, SPIF_SENDCHANGE = 0x02</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span>Accessibility<span class="op">.</span><span class="fu">Win32HighContrast</span><span class="op">]::</span>SystemParametersInfo<span class="op">(</span><span class="dv">0x0043</span><span class="op">,</span> <span class="va">$struct</span><span class="op">.</span><span class="fu">cbSize</span><span class="op">,</span> <span class="op">[</span>ref<span class="op">]</span><span class="va">$struct</span><span class="op">,</span> <span class="dv">0x03</span><span class="op">)</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage:</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Set-HighContrast -Enable $true -Scheme &quot;High Contrast Black&quot;</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Set-HighContrast -Enable $false</span></span></code></pre></div></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

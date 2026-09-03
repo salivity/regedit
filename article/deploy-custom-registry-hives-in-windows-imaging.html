@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Custom Registry Hives in Windows Imaging - regedit</title>
+    <meta name="description" content="Enterprise deployment tools push custom registry hives during the imaging process to preconfigure system policies, drivers, and user environments before a machine reaches an end user. By utilizing offline servicing techniques, deployment task sequences,">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/deploy-custom-registry-hives-in-windows-imaging">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Deploy Custom Registry Hives in Windows Imaging - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/deploy-custom-registry-hives-in-windows-imaging" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Enterprise deployment tools push custom registry hives during the imaging process to preconfigure system policies, drivers, and user environments before a machine reaches an end user. By utilizing offline servicing techniques, deployment task sequences," />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="deploy-custom-registry-hives-in-windows-imaging">Deploy Custom
+Registry Hives in Windows Imaging</h1>
+<p>Enterprise deployment tools push custom registry hives during the
+imaging process to preconfigure system policies, drivers, and user
+environments before a machine reaches an end user. By utilizing offline
+servicing techniques, deployment task sequences, and default profile
+modifications, tools like Microsoft Endpoint Configuration Manager
+(MECM), Microsoft Deployment Toolkit (MDT), and DISM inject registry
+configurations directly into target Windows images. This article
+explains the technical workflows enterprise tools use to load, modify,
+and commit custom registry hives during offline and online imaging
+phases.</p>
+<h2 id="offline-registry-servicing-with-dism-and-regexe">Offline
+Registry Servicing with DISM and Reg.exe</h2>
+<p>The most common method for pushing custom registry entries during
+image creation is offline servicing. This approach modifies the Windows
+image file (WIM or VHD) directly without booting into the operating
+system.</p>
+<ol type="1">
+<li><p><strong>Mounting the Image:</strong> The deployment tool mounts
+the offline install image using the Deployment Image Servicing and
+Management (DISM) engine:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dism <span class="at">/Mount-Image</span> <span class="at">/ImageFile:</span>C:\Images\install.wim <span class="at">/Index:</span>1 <span class="at">/MountDir:</span>C:\Mount</span></code></pre></div></li>
+<li><p><strong>Loading the Target Hive:</strong> System-level registry
+hives reside as raw binary files in
+<code>C:\Mount\Windows\System32\config\</code> (such as
+<code>SOFTWARE</code>, <code>SYSTEM</code>, or <code>SAM</code>). The
+deployment script uses <code>reg.exe</code> to load the target hive
+under a temporary key in the host machine's registry:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reg load HKLM\OfflineSoftware C:\Mount\Windows\System32\config\SOFTWARE</span></code></pre></div></li>
+<li><p><strong>Injecting Registry Entries:</strong> Once loaded,
+standard <code>.reg</code> files or <code>reg add</code> commands apply
+custom configurations directly into the mounted hive:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>reg import custom_settings.reg</span></code></pre></div></li>
+<li><p><strong>Unloading and Committing:</strong> The temporary hive is
+unloaded to release file locks, and DISM commits the changes back to the
+image file:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reg unload HKLM\OfflineSoftware</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dism <span class="at">/Unmount-Image</span> <span class="at">/MountDir:</span>C:\Mount <span class="at">/Commit</span></span></code></pre></div></li>
+</ol>
+<h2 id="task-sequence-execution-during-preinstallation-winpe">Task
+Sequence Execution During Preinstallation (WinPE)</h2>
+<p>In dynamic enterprise environments like MECM or MDT, configurations
+are applied dynamically during deployment via task sequences rather than
+pre-baked into static WIM files.</p>
+<ul>
+<li><strong>Drive Identification:</strong> While booted in Windows
+Preinstallation Environment (WinPE), the target disk is partitioned and
+the base OS image is laid down on the disk (typically assigned a
+temporary drive letter like <code>C:</code> or <code>D:</code>).</li>
+<li><strong>Command Line Steps:</strong> The task sequence runs a batch
+or PowerShell script that executes <code>reg load</code> against the
+newly applied operating system disk before the system reboots into the
+full OS.</li>
+<li><strong>Hardware-Specific Injection:</strong> This allows deployment
+engines to evaluate hardware queries (WMI) and inject registry settings
+tailored specifically to the target hardware model.</li>
+</ul>
+<h2 id="customizing-the-default-user-profile-ntuserdat">Customizing the
+Default User Profile (NTUSER.DAT)</h2>
+<p>To ensure every new user who logs into the deployed machine receives
+specific application and interface configurations, enterprise tools
+modify the default user hive.</p>
+<ul>
+<li><strong>Targeting NTUSER.DAT:</strong> The template hive is located
+at <code>\Users\Default\NTUSER.DAT</code>.</li>
+<li><strong>Injection Process:</strong> The deployment script mounts
+this file to a temporary node such as <code>HKLM\DefaultUser</code>:
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reg load HKLM\DefaultUser C:\Users\Default\NTUSER.DAT</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>reg add <span class="st">&quot;HKLM\DefaultUser\Software\CustomApp&quot;</span> <span class="at">/v</span> <span class="st">&quot;Enabled&quot;</span> <span class="at">/t</span> REG_DWORD <span class="at">/d</span> 1 <span class="at">/f</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>reg unload HKLM\DefaultUser</span></code></pre></div></li>
+<li><strong>Inheritance:</strong> When a new user logs on for the first
+time, Windows copies this modified <code>Default</code> folder to
+generate the user's <code>HKEY_CURRENT_USER</code> hive, ensuring all
+preconfigured preferences are automatically inherited.</li>
+</ul>
+<h2
+id="post-installation-scripting-via-setupcompletecmd">Post-Installation
+Scripting via SetupComplete.cmd</h2>
+<p>When deployment tools require registry changes after the Windows
+Out-of-Box Experience (OOBE) or specialize configuration passes, they
+utilize native post-setup hooks.</p>
+<ul>
+<li>Deployment tools stage a <code>SetupComplete.cmd</code> file in
+<code>C:\Windows\Setup\Scripts\</code>.</li>
+<li>When the deployment finishes and before the logon screen appears,
+Windows executes this script with local <code>SYSTEM</code>
+privileges.</li>
+<li>The script imports native <code>.reg</code> files directly into
+<code>HKEY_LOCAL_MACHINE</code> using standard execution without
+requiring temporary hive mounting:
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>regedit.exe <span class="at">/s</span> C:\Windows\Setup\Scripts\EnterpriseSettings.reg</span></code></pre></div></li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

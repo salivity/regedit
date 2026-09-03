@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry Symbolic Links in Regedit Explained - regedit</title>
+    <meta name="description" content="This article explores how the Windows Registry Editor (Regedit) handles and represents symbolic links pointing across different registry hives. It explains the visual behavior of these links within the Regedit graphical interface, the underlying REGLINK">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/registry-symbolic-links-in-regedit-explained">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Registry Symbolic Links in Regedit Explained - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/registry-symbolic-links-in-regedit-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores how the Windows Registry Editor (Regedit) handles and represents symbolic links pointing across different registry hives. It explains the visual behavior of these links within the Regedit graphical interface, the underlying REGLINK" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="registry-symbolic-links-in-regedit-explained">Registry Symbolic
+Links in Regedit Explained</h1>
+<p>This article explores how the Windows Registry Editor (Regedit)
+handles and represents symbolic links pointing across different registry
+hives. It explains the visual behavior of these links within the Regedit
+graphical interface, the underlying <code>REG_LINK</code> structure, and
+how the operating system transparently resolves cross-hive pointers like
+root key aliases.</p>
+<h2 id="visual-representation-in-the-regedit-interface">Visual
+Representation in the Regedit Interface</h2>
+<p>In the standard Windows Registry Editor (<code>regedit.exe</code>),
+symbolic links are visually indistinguishable from regular registry
+keys. Unlike the Windows File Explorer, which marks shortcuts and
+symbolic links with a small arrow overlay on folder icons, Regedit uses
+the standard folder icon for both physical keys and symbolic links.</p>
+<p>When you navigate through a symbolic link in the Regedit tree view,
+the editor seamlessly resolves the link and presents the contents of the
+target subkey as if they were physically located under the parent
+key.</p>
+<h2 id="underlying-data-structure-and-reg_link">Underlying Data
+Structure and <code>REG_LINK</code></h2>
+<p>Registry symbolic links are created using the native Windows NT API
+(such as <code>NtCreateKey</code> with the
+<code>REG_OPTION_CREATE_LINK</code> option). Under the hood, a registry
+link key contains a special data value:</p>
+<ul>
+<li><strong>Value Name:</strong> <code>SymbolicLinkValue</code></li>
+<li><strong>Data Type:</strong> <code>REG_LINK</code></li>
+<li><strong>Data Content:</strong> A null-terminated Unicode string
+containing the absolute NT object path to the destination key (for
+example, <code>\Registry\Machine\SOFTWARE\TargetKey</code>).</li>
+</ul>
+<p>Standard Win32 registry APIs and Regedit automatically traverse
+symbolic links unless explicitly instructed not to by passing the
+<code>REG_OPTION_OPEN_LINK</code> flag to low-level functions. Because
+standard Regedit queries automatically follow links, users will not see
+the <code>SymbolicLinkValue</code> entry listed in the right-hand pane
+during normal navigation; instead, they will see the values and subkeys
+residing in the target key.</p>
+<h2 id="cross-hive-link-resolution">Cross-Hive Link Resolution</h2>
+<p>Registry symbolic links frequently cross hive boundaries using the
+native NT namespace rather than standard Win32 predefined handles
+(<code>HKEY_LOCAL_MACHINE</code>, <code>HKEY_CURRENT_USER</code>). The
+native namespace roots all hives under <code>\Registry</code>, making
+cross-hive pointing straightforward:</p>
+<ul>
+<li><strong><code>HKEY_LOCAL_MACHINE</code></strong> maps to
+<code>\Registry\Machine</code></li>
+<li><strong><code>HKEY_USERS</code></strong> maps to
+<code>\Registry\User</code></li>
+</ul>
+<p>A primary example of cross-hive symbolic linking in everyday Windows
+usage is <code>HKEY_CURRENT_USER</code>. This root key does not
+physically exist as a standalone hive on disk; it is a symbolic link
+pointing from <code>\Registry\User\&lt;User-SID&gt;</code> to the active
+user's subkey within the <code>HKEY_USERS</code> hive. Similarly,
+<code>HKEY_CLASSES_ROOT</code> merges and links data between
+<code>HKEY_LOCAL_MACHINE\Software\Classes</code> and
+<code>HKEY_CURRENT_USER\Software\Classes</code>.</p>
+<h2 id="interaction-and-editing-behavior">Interaction and Editing
+Behavior</h2>
+<p>Because Regedit resolves symbolic links transparently:</p>
+<ol type="1">
+<li><strong>Write Operations:</strong> Creating, modifying, or deleting
+a value under a linked key in Regedit applies the change directly to the
+target subkey in the destination hive.</li>
+<li><strong>Key Deletion:</strong> Deleting a symbolic link key inside
+Regedit attempts to delete the link itself, but depending on how the
+call is handled by the UI, users must be cautious to avoid inadvertently
+removing data in the target key.</li>
+<li><strong>Broken Links:</strong> If the target subkey of a cross-hive
+link is deleted or unavailable, attempting to open the link in Regedit
+will result in an error indicating that the key cannot be opened or does
+not exist.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REG_QWORD vs REG_DWORD: When to Use in Regedit - regedit</title>
+    <meta name="description" content="This article explains the critical differences between REGDWORD and REGQWORD data types in the Windows Registry and outlines the specific scenarios where a system administrator must choose a REGQWORD. Understanding these distinctions ensures system stabi">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/reg-qword-vs-reg-dword-when-to-use-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="REG_QWORD vs REG_DWORD: When to Use in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/reg-qword-vs-reg-dword-when-to-use-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the critical differences between REGDWORD and REGQWORD data types in the Windows Registry and outlines the specific scenarios where a system administrator must choose a REGQWORD. Understanding these distinctions ensures system stabi" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="reg_qword-vs-reg_dword-when-to-use-in-regedit">REG_QWORD vs
+REG_DWORD: When to Use in Regedit</h1>
+<p>This article explains the critical differences between REG_DWORD and
+REG_QWORD data types in the Windows Registry and outlines the specific
+scenarios where a system administrator must choose a REG_QWORD.
+Understanding these distinctions ensures system stability, proper memory
+allocation, and accurate data handling when configuring Windows settings
+or third-party enterprise software.</p>
+<h3 id="the-fundamental-difference-data-size">The Fundamental
+Difference: Data Size</h3>
+<p>The primary distinction between <code>REG_DWORD</code> and
+<code>REG_QWORD</code> is the architecture and bit width used to store
+numeric data:</p>
+<ul>
+<li><strong>REG_DWORD (Double Word):</strong> A 32-bit integer that
+supports decimal values ranging from 0 to 4,294,967,295 (or
+-2,147,483,648 to 2,147,483,647 for signed values).</li>
+<li><strong>REG_QWORD (Quad Word):</strong> A 64-bit integer that
+supports decimal values ranging from 0 to
+18,446,744,073,709,551,615.</li>
+</ul>
+<h3 id="when-to-create-a-reg_qword">When to Create a REG_QWORD</h3>
+<p>An administrator must create a <code>REG_QWORD</code> value in the
+following circumstances:</p>
+<h4 id="1-values-exceeding-the-4-gb-32-bit-numeric-limit">1. Values
+Exceeding the 4 GB (32-bit) Numeric Limit</h4>
+<p>If a configuration parameter requires a number greater than
+4,294,967,295, a <code>REG_DWORD</code> will overflow and fail to store
+the accurate value. <code>REG_QWORD</code> is required whenever the
+stored integer exceeds this threshold. Common examples include:</p>
+<ul>
+<li>Byte offsets on massive storage volumes (greater than 4 GB).</li>
+<li>Large-scale network throughput or packet count thresholds.</li>
+<li>High-volume transaction limits in database or web server
+configurations.</li>
+</ul>
+<h4 id="2-advanced-memory-and-cache-allocations">2. Advanced Memory and
+Cache Allocations</h4>
+<p>Modern 64-bit Windows operating systems and enterprise applications
+(such as Microsoft SQL Server, Exchange, or Hyper-V) frequently manage
+system memory well beyond 4 GB. When registry parameters define memory
+allocations, page file limits, buffer pool sizes, or cache limits in
+bytes, a <code>REG_QWORD</code> is required to represent these massive
+memory addresses and capacities accurately.</p>
+<h4 id="3-64-bit-system-timestamps-and-performance-counters">3. 64-Bit
+System Timestamps and Performance Counters</h4>
+<p>Windows uses 64-bit structures for high-precision time tracking, such
+as the <code>FILETIME</code> structure (which records the number of
+100-nanosecond intervals since January 1, 1601). If a registry key is
+designed to hold complete timestamps, system uptime in milliseconds, or
+cumulative performance counters, a <code>REG_QWORD</code> is necessary
+to prevent data truncation.</p>
+<h4 id="4-explicit-application-and-api-requirements">4. Explicit
+Application and API Requirements</h4>
+<p>The Windows Registry does not automatically convert data types. When
+a program reads a registry value, it calls specific APIs (such as
+<code>RegQueryValueEx</code>) expecting an exact data type buffer:</p>
+<ul>
+<li>If an application is programmed to read a 64-bit integer
+(<code>REG_QWORD</code>) and encounters a <code>REG_DWORD</code>, the
+read operation may return an error, misinterpret the bits, or use
+default fallback settings.</li>
+<li>Administrators should always use <code>REG_QWORD</code> when vendor
+documentation or Microsoft technical guidance explicitly designates the
+key as a 64-bit/QWORD value.</li>
+</ul>
+<h3 id="summary-rule">Summary Rule</h3>
+<p>Use <code>REG_DWORD</code> for simple boolean flags (0 or 1),
+standard system timeouts, and small integer values. Switch to
+<code>REG_QWORD</code> when storing numerical values larger than
+4,294,967,295, configuring large memory/storage metrics in bytes,
+storing high-precision timestamps, or when specifically directed by
+64-bit software specifications.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

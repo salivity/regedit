@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Tamper-Protected Settings in Windows - regedit</title>
+    <meta name="description" content="Tamper Protection in Windows prevents unauthorized applications, malware, and direct registry edits from altering critical security configurations, particularly those governing Microsoft Defender Antivirus. Attempting to modify these keys directly via th">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/modify-tamper-protected-settings-in-windows">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Modify Tamper-Protected Settings in Windows - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/modify-tamper-protected-settings-in-windows" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Tamper Protection in Windows prevents unauthorized applications, malware, and direct registry edits from altering critical security configurations, particularly those governing Microsoft Defender Antivirus. Attempting to modify these keys directly via th" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="modify-tamper-protected-settings-in-windows">Modify
+Tamper-Protected Settings in Windows</h1>
+<p>Tamper Protection in Windows prevents unauthorized applications,
+malware, and direct registry edits from altering critical security
+configurations, particularly those governing Microsoft Defender
+Antivirus. Attempting to modify these keys directly via the Registry
+Editor (<code>regedit.exe</code>) results in access denied errors even
+when running as an elevated Administrator or SYSTEM. To legitimately
+modify these protected settings without encountering access denials,
+administrators must use official management interfaces, cloud policies,
+or temporarily disable Tamper Protection through supported
+administrative channels.</p>
+<h3 id="1-temporarily-disable-tamper-protection-locally">1. Temporarily
+Disable Tamper Protection Locally</h3>
+<p>For standalone or unmanaged devices, an administrator can disable the
+feature through the graphical user interface before making configuration
+changes:</p>
+<ol type="1">
+<li>Open the <strong>Start Menu</strong> and search for <strong>Windows
+Security</strong>.</li>
+<li>Navigate to <strong>Virus &amp; threat protection</strong>.</li>
+<li>Under <strong>Virus &amp; threat protection settings</strong>, click
+<strong>Manage settings</strong>.</li>
+<li>Scroll down to <strong>Tamper Protection</strong> and toggle the
+switch to <strong>Off</strong> (confirm the User Account Control
+prompt).</li>
+<li>Open <code>regedit</code> and apply the required configuration
+modifications.</li>
+<li>Return to the Windows Security panel and toggle <strong>Tamper
+Protection</strong> back to <strong>On</strong> to restore system
+defense.</li>
+</ol>
+<h3 id="2-configure-settings-via-microsoft-intune">2. Configure Settings
+via Microsoft Intune</h3>
+<p>In enterprise environments managed by Microsoft Intune, direct
+registry modifications should be avoided in favor of centralized device
+configuration profiles:</p>
+<ol type="1">
+<li>Sign in to the <strong>Microsoft Intune admin center</strong>.</li>
+<li>Go to <strong>Endpoint security</strong> &gt;
+<strong>Antivirus</strong>.</li>
+<li>Select an existing policy or create a new <strong>Windows Security
+Experience</strong> profile.</li>
+<li>Adjust the target Defender settings or configure the <strong>Tamper
+Protection</strong> state directly within the profile.</li>
+<li>Assign the policy to the target device group to propagate the
+changes automatically without triggering client-side registry
+blocks.</li>
+</ol>
+<h3 id="3-manage-via-microsoft-defender-for-endpoint">3. Manage via
+Microsoft Defender for Endpoint</h3>
+<p>For organizations utilizing Microsoft Defender for Endpoint without
+Intune management:</p>
+<ol type="1">
+<li>Access the <strong>Microsoft Defender portal</strong>
+(<code>security.microsoft.com</code>).</li>
+<li>Navigate to <strong>Settings</strong> &gt;
+<strong>Endpoints</strong> &gt; <strong>Advanced features</strong>.</li>
+<li>Manage enterprise-wide Tamper Protection policies or configure
+exclusions through the portal.</li>
+<li>Security configurations pushed from the portal bypass local tamper
+enforcement because they are validated through secure management
+channels.</li>
+</ol>
+<h3 id="4-safe-mode-for-recovery-scenarios">4. Safe Mode for Recovery
+Scenarios</h3>
+<p>If registry changes must be made for troubleshooting or disaster
+recovery on an unbootable or misconfigured system, boot the machine into
+<strong>Safe Mode</strong>. In Safe Mode, the Microsoft Defender
+Antivirus services and Tamper Protection drivers do not load, allowing
+local administrators with full control permissions to modify the
+necessary registry keys under
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender</code>.
+Once modified, reboot the system into normal mode.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

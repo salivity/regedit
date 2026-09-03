@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Antialiasing Registry Settings in Windows - regedit</title>
+    <meta name="description" content="Windows stores its font antialiasing and ClearType configuration parameters in specific Registry keys located primarily within the Control Panel\Desktop branch for active user profiles and system defaults. Modifying these registry entries allows administ">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/font-antialiasing-registry-settings-in-windows">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Font Antialiasing Registry Settings in Windows - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/font-antialiasing-registry-settings-in-windows" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows stores its font antialiasing and ClearType configuration parameters in specific Registry keys located primarily within the Control Panel\Desktop branch for active user profiles and system defaults. Modifying these registry entries allows administ" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="font-antialiasing-registry-settings-in-windows">Font
+Antialiasing Registry Settings in Windows</h1>
+<p>Windows stores its font antialiasing and ClearType configuration
+parameters in specific Registry keys located primarily within the
+<code>Control Panel\Desktop</code> branch for active user profiles and
+system defaults. Modifying these registry entries allows administrators
+and users to globally adjust, enable, or disable standard font
+smoothing, subpixel ClearType rendering, gamma correction levels, and
+pixel orientation across the operating system interface.</p>
+<h2 id="primary-registry-locations">Primary Registry Locations</h2>
+<p>The parameters controlling font antialiasing are split between
+user-specific profiles and default system configurations:</p>
+<ul>
+<li><strong>Current User (Active Session):</strong><br />
+<code>HKEY_CURRENT_USER\Control Panel\Desktop</code></li>
+<li><strong>Default System Profile (Logon Screen / New
+Users):</strong><br />
+<code>HKEY_USERS\.DEFAULT\Control Panel\Desktop</code></li>
+</ul>
+<h2 id="core-font-smoothing-parameters">Core Font Smoothing
+Parameters</h2>
+<p>Within the <code>Control Panel\Desktop</code> key, Windows evaluates
+several values to determine how text edges are rendered:</p>
+<ul>
+<li><p><strong><code>FontSmoothing</code></strong>
+(<code>REG_SZ</code>)<br />
+Controls the master switch for font smoothing.</p>
+<ul>
+<li><code>0</code> = Disabled (aliased, jagged text)</li>
+<li><code>2</code> = Enabled (smooth text)</li>
+</ul></li>
+<li><p><strong><code>FontSmoothingType</code></strong>
+(<code>REG_DWORD</code>)<br />
+Specifies the algorithm used for font antialiasing.</p>
+<ul>
+<li><code>1</code> = Standard Grayscale Antialiasing</li>
+<li><code>2</code> = Subpixel Antialiasing (ClearType)</li>
+</ul></li>
+<li><p><strong><code>FontSmoothingGamma</code></strong>
+(<code>REG_DWORD</code>)<br />
+Defines the display gamma value used for ClearType rendering.</p>
+<ul>
+<li>Value range: <code>1000</code> to <code>2200</code> (decimal), with
+<code>1000</code> representing a gamma of 1.0 and <code>2200</code>
+representing 2.2. The standard default is usually <code>1000</code> or
+<code>1400</code>.</li>
+</ul></li>
+<li><p><strong><code>FontSmoothingOrientation</code></strong>
+(<code>REG_DWORD</code>)<br />
+Defines the subpixel arrangement of the physical display.</p>
+<ul>
+<li><code>0</code> = Flat (no subpixel striping)</li>
+<li><code>1</code> = RGB (Standard LCD stripe order)</li>
+<li><code>2</code> = BGR (Inverted LCD stripe order)</li>
+</ul></li>
+</ul>
+<h2 id="directwrite-and-wpf-font-smoothing-settings">DirectWrite and WPF
+Font Smoothing Settings</h2>
+<p>Applications that utilize DirectWrite or Windows Presentation
+Foundation (WPF) reference additional rendering configurations located
+in:</p>
+<p><code>HKEY_CURRENT_USER\Software\Microsoft\Avalon.Graphics</code></p>
+<p>Key values in this location include:</p>
+<ul>
+<li><strong><code>ClearTypeLevel</code></strong>
+(<code>REG_DWORD</code>): Sets the level of ClearType rendering from
+<code>0</code> (grayscale) to <code>100</code> (full ClearType).</li>
+<li><strong><code>EnhancedContrastLevel</code></strong>
+(<code>REG_DWORD</code>): Controls the text contrast algorithm
+adjustment (typically <code>0</code> to <code>12</code>).</li>
+<li><strong><code>GammaLevel</code></strong> (<code>REG_DWORD</code>):
+Sets the rendering gamma, scaling from <code>1000</code> to
+<code>2200</code>.</li>
+<li><strong><code>PixelStructure</code></strong>
+(<code>REG_DWORD</code>): Configures subpixel layout (<code>0</code> =
+Flat, <code>1</code> = RGB, <code>2</code> = BGR).</li>
+</ul>
+<h2 id="applying-changes">Applying Changes</h2>
+<p>Modifications made directly through <code>regedit</code> to these
+keys do not immediately take effect in running applications. To apply
+the updated antialiasing settings system-wide, sign out and sign back
+into the user account or restart the computer.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

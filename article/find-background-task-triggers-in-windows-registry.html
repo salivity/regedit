@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Background Task Triggers in Windows Registry - regedit</title>
+    <meta name="description" content="In Windows, background tasks, triggers, and scheduled work items are recorded across specific Registry paths depending on whether they belong to the Modern App Background Infrastructure (UWP/Broker tasks) or the standard Windows Task Scheduler engine. Th">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/find-background-task-triggers-in-windows-registry">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Find Background Task Triggers in Windows Registry - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/find-background-task-triggers-in-windows-registry" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Windows, background tasks, triggers, and scheduled work items are recorded across specific Registry paths depending on whether they belong to the Modern App Background Infrastructure (UWP/Broker tasks) or the standard Windows Task Scheduler engine. Th" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="find-background-task-triggers-in-windows-registry">Find
+Background Task Triggers in Windows Registry</h1>
+<p>In Windows, background tasks, triggers, and scheduled work items are
+recorded across specific Registry paths depending on whether they belong
+to the Modern App Background Infrastructure (UWP/Broker tasks) or the
+standard Windows Task Scheduler engine. This guide details the exact
+locations within the Registry Editor (<code>regedit.exe</code>) where
+system administrators and developers can inspect registered background
+work items, triggers, and execution configurations.</p>
+<hr />
+<h3 id="1-modern-background-infrastructure-uwp-and-broker-tasks">1.
+Modern Background Infrastructure (UWP and Broker Tasks)</h3>
+<p>For modern Windows applications and universal background triggers
+(such as maintenance triggers, push notifications, and network state
+changes), Windows registers task metadata under the Background
+Infrastructure keys.</p>
+<ul>
+<li><p><strong>Trigger and Broker Configuration:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundInfrastructure</code><br />
+<em>Inside this key, you can view global parameters and system brokers
+that manage background activation.</em></p></li>
+<li><p><strong>System-Wide Background App Permissions and
+Triggers:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications</code><br />
+<em>Lists applications registered to execute background work along with
+their respective Package Family Names (PFN) and system-level
+permissions.</em></p></li>
+<li><p><strong>User-Specific Background Task
+Registrations:</strong><br />
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications</code><br />
+<em>Contains per-user trigger permissions and execution state flags for
+apps allowed to run background tasks.</em></p></li>
+</ul>
+<hr />
+<h3 id="2-task-scheduler-background-work-items-and-triggers">2. Task
+Scheduler Background Work Items and Triggers</h3>
+<p>Standard Windows background tasks and system jobs are managed by the
+Task Scheduler cache, which stores the binary definitions of triggers,
+actions, and task hierarchies.</p>
+<ul>
+<li><p><strong>Registered Task Definitions and Triggers:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks</code><br />
+<em>Each subkey is a GUID representing a registered background task.
+Inside each GUID subkey, you will find:</em></p>
+<ul>
+<li><code>Actions</code>: The binary data defining what executable or
+script runs.</li>
+<li><code>Triggers</code>: The binary definition of the schedule, event
+trigger, or idle state that activates the task.</li>
+<li><code>DynamicInfo</code>: The current execution state and
+registration timestamps.</li>
+</ul></li>
+<li><p><strong>Task Tree Hierarchy:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</code><br />
+<em>Displays the logical folder structure identical to the Task
+Scheduler UI. Clicking a specific task name reveals an <code>Id</code>
+string, which maps directly to the corresponding GUID in the
+<code>Tasks</code> key above.</em></p></li>
+<li><p><strong>Boot and Logon Specific Work Items:</strong></p>
+<ul>
+<li><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Boot</code></li>
+<li><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon</code></li>
+<li><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain</code><br />
+<em>These keys act as fast-lookup indices for tasks triggered by system
+startup, user sign-in, or standard scheduling.</em></li>
+</ul></li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

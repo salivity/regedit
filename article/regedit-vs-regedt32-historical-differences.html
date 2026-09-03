@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regedit vs Regedt32: Historical Differences - regedit</title>
+    <meta name="description" content="In earlier versions of Microsoft Windows, two distinct Registry Editors existed side by side: regedit.exe and regedt32.exe. This duality was a byproduct of Microsoft's split operating system development during the 1990s, where consumer Windows (Windows 9">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/regedit-vs-regedt32-historical-differences">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Regedit vs Regedt32: Historical Differences - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/regedit-vs-regedt32-historical-differences" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In earlier versions of Microsoft Windows, two distinct Registry Editors existed side by side: regedit.exe and regedt32.exe. This duality was a byproduct of Microsoft's split operating system development during the 1990s, where consumer Windows (Windows 9" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="regedit-vs-regedt32-historical-differences">Regedit vs Regedt32:
+Historical Differences</h1>
+<p>In earlier versions of Microsoft Windows, two distinct Registry
+Editors existed side by side: <code>regedit.exe</code> and
+<code>regedt32.exe</code>. This duality was a byproduct of Microsoft's
+split operating system development during the 1990s, where consumer
+Windows (Windows 95, 98, and ME) and enterprise Windows (Windows NT and
+2000) ran on completely different codebases. While both tools were
+designed to modify the Windows Registry, they offered starkly different
+user interfaces, search capabilities, data type support, and security
+controls until Microsoft finally merged them in Windows XP.</p>
+<h3 id="origins-and-architectural-roots">Origins and Architectural
+Roots</h3>
+<ul>
+<li><strong><code>regedt32.exe</code> (Windows NT):</strong> Introduced
+with Windows NT 3.1 in 1993, this was a native 32-bit application
+designed for the robust, security-focused NT architecture. It was
+engineered to support the full spectrum of NT registry features,
+including Access Control Lists (ACLs) and specialized data types.</li>
+<li><strong><code>regedit.exe</code> (Windows 95):</strong> Introduced
+with Windows 95, this tool was designed for consumer versions of
+Windows. It lacked the enterprise security infrastructure of Windows NT
+and was built with simplicity and usability in mind.</li>
+</ul>
+<p>When Microsoft brought <code>regedit.exe</code> into Windows NT 4.0
+and Windows 2000 to provide a more user-friendly interface, both
+executables remained included in the operating system because neither
+tool possessed all the features of the other.</p>
+<h3 id="interface-and-search-capabilities">Interface and Search
+Capabilities</h3>
+<p>The most noticeable difference between the two utilities was the user
+interface and how users navigated keys:</p>
+<ul>
+<li><strong><code>regedit.exe</code></strong> utilized a modern,
+Explorer-style two-pane interface with a unified tree structure on the
+left and values on the right. It included a powerful search engine
+(invoked via <code>Ctrl+F</code> or <code>F3</code>) that could scan
+across key names, value names, and actual data strings in a single
+operation.</li>
+<li><strong><code>regedt32.exe</code></strong> utilized a legacy
+Multiple Document Interface (MDI), opening separate, cascaded windows
+for each root hive (<code>HKEY_LOCAL_MACHINE</code>,
+<code>HKEY_CURRENT_USER</code>, etc.). Its search capability was
+severely limited: it could only find key names within the currently
+active hive window and could not search for value names or binary/string
+data.</li>
+</ul>
+<h3 id="permissions-and-security-management">Permissions and Security
+Management</h3>
+<p>Security was the primary reason system administrators relied on
+<code>regedt32.exe</code>:</p>
+<ul>
+<li><strong><code>regedt32.exe</code></strong> had full support for
+Windows NT security permissions. It allowed administrators to view,
+assign, and audit read/write permissions (ACLs) on individual registry
+keys. It also featured a read-only mode to prevent accidental
+modifications.</li>
+<li><strong><code>regedit.exe</code></strong> had no awareness of
+Windows NT security models. In Windows NT 4.0 and Windows 9x, it could
+not view or edit permissions. Modifying secured keys with
+<code>regedit.exe</code> could inadvertently bypass or damage existing
+security descriptors.</li>
+</ul>
+<h3 id="data-type-support">Data Type Support</h3>
+<p>The two tools handled registry value types differently:</p>
+<ul>
+<li><strong><code>regedt32.exe</code></strong> supported advanced NT
+data types natively. It allowed users to properly view and edit types
+such as <code>REG_EXPAND_SZ</code> (expandable environment strings),
+<code>REG_MULTI_SZ</code> (multiple strings), and
+<code>REG_FULL_RESOURCE_DESCRIPTOR</code> (hardware configuration).</li>
+<li><strong><code>regedit.exe</code></strong> in early versions could
+not properly parse these complex types. It displayed
+<code>REG_EXPAND_SZ</code> and <code>REG_MULTI_SZ</code> as raw binary
+data. If an administrator attempted to edit these values in
+<code>regedit.exe</code>, the tool often corrupted the data format,
+converting them to plain string or binary values.</li>
+</ul>
+<h3 id="the-unification-in-windows-xp">The Unification in Windows
+XP</h3>
+<p>With the release of Windows XP in 2001, Microsoft unified its
+consumer and enterprise lines under the Windows NT kernel and completely
+revamped the Registry Editor.</p>
+<p>The developers took the familiar interface and search engine of
+<code>regedit.exe</code> and added all the missing capabilities from
+<code>regedt32.exe</code>, including full permissions editing and
+support for all registry data types. To preserve backward compatibility
+and muscle memory for system administrators, Microsoft retained
+<code>regedt32.exe</code> as a lightweight 512-byte stub executable that
+simply launches <code>regedit.exe</code>.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

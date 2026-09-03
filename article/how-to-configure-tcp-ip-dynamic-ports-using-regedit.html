@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Configure TCP/IP Dynamic Ports Using Regedit - regedit</title>
+    <meta name="description" content="This article provides a step-by-step guide on configuring custom dynamic (ephemeral) TCP/IP port ranges in Windows using the Registry Editor (Regedit). By adjusting these registry parameters, network administrators can expand the available port pool to p">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/how-to-configure-tcp-ip-dynamic-ports-using-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Configure TCP/IP Dynamic Ports Using Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/how-to-configure-tcp-ip-dynamic-ports-using-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a step-by-step guide on configuring custom dynamic (ephemeral) TCP/IP port ranges in Windows using the Registry Editor (Regedit). By adjusting these registry parameters, network administrators can expand the available port pool to p" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-configure-tcpip-dynamic-ports-using-regedit">How to
+Configure TCP/IP Dynamic Ports Using Regedit</h1>
+<p>This article provides a step-by-step guide on configuring custom
+dynamic (ephemeral) TCP/IP port ranges in Windows using the Registry
+Editor (Regedit). By adjusting these registry parameters, network
+administrators can expand the available port pool to prevent port
+exhaustion during heavy network traffic, or restrict the range to meet
+specific application and firewall requirements.</p>
+<h3 id="understanding-the-dynamic-port-registry-settings">Understanding
+the Dynamic Port Registry Settings</h3>
+<p>In Windows, dynamic outbound connections select an available port
+from a designated range. Through the Registry Editor, you can control
+the upper boundary of this range using the <code>MaxUserPort</code>
+setting.</p>
+<ul>
+<li><strong>Registry Key:</strong> <code>MaxUserPort</code></li>
+<li><strong>Data Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Default Range:</strong> By default, dynamic ports start at
+<code>49152</code> and end at <code>65535</code>.</li>
+<li><strong>Valid Values:</strong> <code>5000</code> to
+<code>65534</code> (Decimal)</li>
+</ul>
+<hr />
+<h3 id="step-by-step-configuration-guide">Step-by-Step Configuration
+Guide</h3>
+<h4 id="step-1-open-the-registry-editor">Step 1: Open the Registry
+Editor</h4>
+<ol type="1">
+<li>Press <code>Windows Key + R</code> to open the Run dialog box.</li>
+<li>Type <code>regedit</code> and press <code>Enter</code> or click
+<strong>OK</strong>.</li>
+<li>If prompted by User Account Control (UAC), click
+<strong>Yes</strong>.</li>
+</ol>
+<h4 id="step-2-navigate-to-the-tcpip-parameters-key">Step 2: Navigate to
+the TCP/IP Parameters Key</h4>
+<p>In the left-hand navigation pane, expand the folders to reach the
+following path:</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</code></p>
+<h4 id="step-3-create-or-modify-the-maxuserport-value">Step 3: Create or
+Modify the <code>MaxUserPort</code> Value</h4>
+<ol type="1">
+<li>Check the right-hand pane to see if the
+<strong><code>MaxUserPort</code></strong> value already exists.</li>
+<li>If it does not exist:
+<ul>
+<li>Right-click an empty area in the right-hand pane.</li>
+<li>Select <strong>New</strong> &gt; <strong>DWORD (32-bit)
+Value</strong>.</li>
+<li>Name the new value <code>MaxUserPort</code> and press
+<code>Enter</code>.</li>
+</ul></li>
+<li>Double-click the <strong><code>MaxUserPort</code></strong> entry to
+edit it.</li>
+<li>Under <strong>Base</strong>, select the <strong>Decimal</strong>
+radio button.</li>
+<li>In the <strong>Value data</strong> field, enter the highest port
+number you want the dynamic range to reach (for example,
+<code>65534</code> to maximize available ports).</li>
+<li>Click <strong>OK</strong> to save the changes.</li>
+</ol>
+<h4 id="step-4-optional-configure-tcptimedwaitdelay">Step 4: (Optional)
+Configure <code>TcpTimedWaitDelay</code></h4>
+<p>When expanding port availability, you can also reduce the time a
+closed connection remains in the <code>TIME_WAIT</code> state:</p>
+<ol type="1">
+<li>In the same registry directory, check for the
+<strong><code>TcpTimedWaitDelay</code></strong> value.</li>
+<li>If it does not exist, right-click, select <strong>New</strong> &gt;
+<strong>DWORD (32-bit) Value</strong>, and name it
+<code>TcpTimedWaitDelay</code>.</li>
+<li>Double-click <code>TcpTimedWaitDelay</code>, select
+<strong>Decimal</strong>, and set the value between <code>30</code> and
+<code>240</code> (seconds). The default is <code>240</code> (4 minutes);
+setting it to <code>30</code> frees up ports much faster.</li>
+<li>Click <strong>OK</strong>.</li>
+</ol>
+<h4 id="step-5-restart-the-system">Step 5: Restart the System</h4>
+<p>Registry modifications under the <code>Tcpip\Parameters</code> subkey
+do not take effect dynamically. Restart your computer or server to apply
+the new TCP/IP port range settings.</p>
+<hr />
+<h3 id="verifying-the-changes">Verifying the Changes</h3>
+<p>After the system reboots, you can verify your active dynamic port
+configuration by opening Command Prompt as an Administrator and
+running:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>netsh int ipv4 show dynamicport tcp</span></code></pre></div>
+<p>This command will output the current start port and total number of
+dynamic ports available for TCP communication.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

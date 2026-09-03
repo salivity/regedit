@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Update Delivery Optimization Registry Path - regedit</title>
+    <meta name="description" content="This guide details the exact Windows Registry locations used to control and configure Windows Update Delivery Optimization (WUDO). It covers the primary policy and configuration paths within the Registry Editor (Regedit), explains key DWORD values such a">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/windows-update-delivery-optimization-registry-path">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Windows Update Delivery Optimization Registry Path - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/windows-update-delivery-optimization-registry-path" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide details the exact Windows Registry locations used to control and configure Windows Update Delivery Optimization (WUDO). It covers the primary policy and configuration paths within the Registry Editor (Regedit), explains key DWORD values such a" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="windows-update-delivery-optimization-registry-path">Windows
+Update Delivery Optimization Registry Path</h1>
+<p>This guide details the exact Windows Registry locations used to
+control and configure Windows Update Delivery Optimization (WUDO). It
+covers the primary policy and configuration paths within the Registry
+Editor (Regedit), explains key DWORD values such as download modes, and
+outlines how administrators can manage peer-to-peer update distribution
+directly via the registry.</p>
+<h3 id="primary-policy-registry-path">Primary Policy Registry Path</h3>
+<p>When Delivery Optimization settings are configured through Group
+Policy, MDM (like Microsoft Intune), or manual administrative override,
+they are stored in the following registry path:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization</code></p>
+<p>If this key does not exist, creating it allows you to enforce
+system-wide Delivery Optimization policies.</p>
+<h3 id="local-system-configuration-path">Local System Configuration
+Path</h3>
+<p>The standard local configuration and runtime cache settings for
+Delivery Optimization are managed under:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config</code></p>
+<p>Additional user-specific or system state values can also be found
+at:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings</code></p>
+<hr />
+<h3 id="key-registry-values">Key Registry Values</h3>
+<p>The most common setting adjusted in the Delivery Optimization
+registry path is the download mode, represented by the
+<code>DODownloadMode</code> DWORD (32-bit) value.</p>
+<p>Located in
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization</code>:</p>
+<ul>
+<li><strong>Value Name:</strong> <code>DODownloadMode</code></li>
+<li><strong>Value Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Data Values:</strong>
+<ul>
+<li><code>0</code> – <strong>HTTP Only:</strong> Disables peer-to-peer
+caching; updates download directly from Microsoft servers or WSUS.</li>
+<li><code>1</code> – <strong>LAN (Peers on the same network):</strong>
+Downloads updates from Microsoft and peers on the local subnet.</li>
+<li><code>2</code> – <strong>Group:</strong> Downloads only from peers
+within the same Active Directory site or domain.</li>
+<li><code>3</code> – <strong>Internet:</strong> Downloads from peers
+across the internet as well as local peers.</li>
+<li><code>99</code> – <strong>Simple Mode:</strong> Disables Delivery
+Optimization cloud services entirely (uses HTTP only without DO
+metadata).</li>
+<li><code>100</code> – <strong>Bypass Mode:</strong> Uses BITS instead
+of Delivery Optimization entirely.</li>
+</ul></li>
+</ul>
+<h3 id="additional-common-settings">Additional Common Settings</h3>
+<p>Other important DWORD values managed under the policy path
+include:</p>
+<ul>
+<li><strong><code>DOMaxBackgroundBandwidth</code></strong> – Restricts
+the maximum background download bandwidth in kilobytes per second
+(KB/s).</li>
+<li><strong><code>DOMaxForegroundBandwidth</code></strong> – Restricts
+the maximum foreground download bandwidth in KB/s.</li>
+<li><strong><code>DOMaxCacheSize</code></strong> – Sets the maximum
+cache size that Delivery Optimization can use as a percentage
+(1–100).</li>
+<li><strong><code>DOMonthlyUploadDataCapInGB</code></strong> – Limits
+the total amount of data (in GB) that a device is allowed to upload to
+internet peers each month.</li>
+</ul>
+<h3 id="applying-changes">Applying Changes</h3>
+<p>After creating or modifying values in these registry keys, restart
+the <strong>Delivery Optimization</strong> service (<code>DoSvc</code>)
+via <code>services.msc</code> or run
+<code>net stop dosvc &amp;&amp; net start dosvc</code> in an elevated
+Command Prompt to apply the changes immediately.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

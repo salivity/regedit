@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjust Network Link Negotiation Sleep in Regedit - regedit</title>
+    <meta name="description" content="This guide explains how to configure network adapter link negotiation and power-saving sleep parameters using the Windows Registry Editor (regedit). Adjusting these settings allows you to control how your network interface card (NIC) handles connection s">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/adjust-network-link-negotiation-sleep-in-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Adjust Network Link Negotiation Sleep in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/adjust-network-link-negotiation-sleep-in-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how to configure network adapter link negotiation and power-saving sleep parameters using the Windows Registry Editor (regedit). Adjusting these settings allows you to control how your network interface card (NIC) handles connection s" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="adjust-network-link-negotiation-sleep-in-regedit">Adjust Network
+Link Negotiation Sleep in Regedit</h1>
+<p>This guide explains how to configure network adapter link negotiation
+and power-saving sleep parameters using the Windows Registry Editor
+(<code>regedit</code>). Adjusting these settings allows you to control
+how your network interface card (NIC) handles connection speeds, link
+downshifting, and auto-negotiation when the computer enters standby,
+sleep, or low-power states.</p>
+<h3 id="step-1-open-the-windows-registry-editor">Step 1: Open the
+Windows Registry Editor</h3>
+<ol type="1">
+<li>Press <code>Windows Key + R</code> to open the <strong>Run</strong>
+dialog box.</li>
+<li>Type <code>regedit</code> and press <strong>Enter</strong> (or click
+<strong>OK</strong>).</li>
+<li>If prompted by User Account Control (UAC), click
+<strong>Yes</strong> to grant administrative privileges.</li>
+</ol>
+<h3 id="step-2-navigate-to-the-network-adapters-class-key">Step 2:
+Navigate to the Network Adapters Class Key</h3>
+<p>In the Registry Editor address bar, paste the following path and
+press <strong>Enter</strong>:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</code></pre>
+<p>This key contains numbered subfolders (e.g., <code>0000</code>,
+<code>0001</code>, <code>0002</code>), each representing a specific
+network interface installed on your system.</p>
+<h3 id="step-3-locate-your-network-adapter">Step 3: Locate Your Network
+Adapter</h3>
+<ol type="1">
+<li>Click on each numbered folder (<code>0000</code>, <code>0001</code>,
+etc.) in the left pane.</li>
+<li>Look at the <strong>DriverDesc</strong> string value in the right
+pane.</li>
+<li>Identify the folder corresponding to your active Ethernet or Wi-Fi
+adapter (for example, <em>Intel(R) Ethernet Connection</em> or
+<em>Realtek PCIe GbE Family Controller</em>).</li>
+</ol>
+<h3 id="step-4-adjust-link-negotiation-and-sleep-parameters">Step 4:
+Adjust Link Negotiation and Sleep Parameters</h3>
+<p>Once the correct folder is selected, look for the following values in
+the right pane. If a value does not exist, you can create it by
+right-clicking in the empty space, selecting <strong>New</strong> &gt;
+<strong>String Value</strong> (or <strong>DWORD (32-bit) Value</strong>
+depending on the specific driver requirement), and entering the exact
+name.</p>
+<ul>
+<li><strong>ReduceSpeedOnPowerDown</strong>
+<ul>
+<li><strong>Description:</strong> Controls whether the network link
+speed is automatically downshifted (e.g., from 1 Gbps to 10/100 Mbps)
+when the system enters sleep or standby.</li>
+<li><strong>Values:</strong> <code>0</code> (Disabled / Maintain full
+link speed during sleep), <code>1</code> (Enabled / Downshift link speed
+to save power).</li>
+</ul></li>
+<li>*<strong>EEE (Energy Efficient Ethernet)</strong>
+<ul>
+<li><strong>Description:</strong> Controls the IEEE 802.3az protocol
+negotiation for low-power idle states.</li>
+<li><strong>Values:</strong> <code>0</code> (Disabled), <code>1</code>
+(Enabled).</li>
+</ul></li>
+<li><strong>AutoPowerSaveModeEnabled</strong>
+<ul>
+<li><strong>Description:</strong> Governs dynamic power-state
+transitions based on link status.</li>
+<li><strong>Values:</strong> <code>0</code> (Disabled), <code>1</code>
+(Enabled).</li>
+</ul></li>
+<li><strong>WaitAutoNegComplete</strong>
+<ul>
+<li><strong>Description:</strong> Determines whether the adapter forces
+the system to wait for auto-negotiation to complete before transitioning
+between power states.</li>
+<li><strong>Values:</strong> <code>0</code> (Do not wait),
+<code>1</code> (Wait for link resolution).</li>
+</ul></li>
+<li><strong>WakeOnLink / S5WakeOnLin</strong>
+<ul>
+<li><strong>Description:</strong> Manages link state monitoring for
+wake-on-LAN functionality during low-power modes.</li>
+<li><strong>Values:</strong> <code>0</code> (Disabled), <code>1</code>
+(Enabled).</li>
+</ul></li>
+</ul>
+<p>To modify any parameter:</p>
+<ol type="1">
+<li>Double-click the target entry.</li>
+<li>Enter the desired value in the <strong>Value data</strong>
+field.</li>
+<li>Click <strong>OK</strong>.</li>
+</ol>
+<h3 id="step-5-apply-the-changes">Step 5: Apply the Changes</h3>
+<p>Registry modifications to network adapters do not take effect
+immediately. Apply the changes by performing either of the following
+actions:</p>
+<ul>
+<li><strong>Restart the Network Adapter:</strong> Open <strong>Device
+Manager</strong>, expand <strong>Network adapters</strong>, right-click
+your adapter, select <strong>Disable device</strong>, wait 5 seconds,
+and select <strong>Enable device</strong>.</li>
+<li><strong>Restart the Computer:</strong> Perform a standard Windows
+restart to initialize the driver with the newly defined parameters.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

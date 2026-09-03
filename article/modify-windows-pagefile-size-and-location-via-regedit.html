@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Windows Pagefile Size and Location via Regedit - regedit</title>
+    <meta name="description" content="This article explains how to configure the Windows paging file (virtual memory) size and drive location using the Windows Registry Editor (regedit). Modifying these settings directly through the registry is useful for automated deployments, headless syst">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/modify-windows-pagefile-size-and-location-via-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Modify Windows Pagefile Size and Location via Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/modify-windows-pagefile-size-and-location-via-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how to configure the Windows paging file (virtual memory) size and drive location using the Windows Registry Editor (regedit). Modifying these settings directly through the registry is useful for automated deployments, headless syst" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="modify-windows-pagefile-size-and-location-via-regedit">Modify
+Windows Pagefile Size and Location via Regedit</h1>
+<p>This article explains how to configure the Windows paging file
+(virtual memory) size and drive location using the Windows Registry
+Editor (<code>regedit</code>). Modifying these settings directly through
+the registry is useful for automated deployments, headless system
+configurations, or troubleshooting scenarios where the standard System
+Properties graphical user interface is unavailable.</p>
+<h3 id="step-1-open-the-registry-editor">Step 1: Open the Registry
+Editor</h3>
+<ol type="1">
+<li>Press <code>Win + R</code> to open the Run dialog box.</li>
+<li>Type <code>regedit</code> and press <code>Enter</code> (or click
+<strong>OK</strong>).</li>
+<li>If prompted by User Account Control (UAC), click
+<strong>Yes</strong> to grant administrative permissions.</li>
+</ol>
+<h3 id="step-2-navigate-to-the-memory-management-key">Step 2: Navigate
+to the Memory Management Key</h3>
+<p>In the Registry Editor, use the left sidebar or copy and paste the
+following path into the address bar at the top:</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management</code></p>
+<h3 id="step-3-disable-automatic-pagefile-management">Step 3: Disable
+Automatic Pagefile Management</h3>
+<p>Before setting custom sizes or locations, ensure Windows is not
+automatically managing the paging file across your drives:</p>
+<ol type="1">
+<li>Locate the DWORD value named <code>AutomaticManagedPagefile</code>
+in the right pane.</li>
+<li>Double-click <code>AutomaticManagedPagefile</code> and set its
+<strong>Value data</strong> to <code>0</code>.</li>
+<li>Click <strong>OK</strong>.</li>
+</ol>
+<h3 id="step-4-configure-the-pagefile-placement-and-size">Step 4:
+Configure the Pagefile Placement and Size</h3>
+<ol type="1">
+<li>In the same registry key, locate the Multi-String Value
+(<code>REG_MULTI_SZ</code>) named <code>PagingFiles</code>. (If it does
+not exist, right-click an empty space, select <strong>New</strong> &gt;
+<strong>Multi-String Value</strong>, and name it
+<code>PagingFiles</code>).</li>
+<li>Double-click <code>PagingFiles</code> to open the Edit Multi-String
+dialog.</li>
+<li>Enter your desired configuration using the format:
+<code>[Drive:\]pagefile.sys [Initial_Size_MB] [Maximum_Size_MB]</code></li>
+</ol>
+<h4 id="configuration-examples">Configuration Examples:</h4>
+<ul>
+<li><p><strong>Fixed Size Pagefile on the C: Drive (e.g., 4 GB Min / 8
+GB Max):</strong></p>
+<pre class="text"><code>C:\pagefile.sys 4096 8192</code></pre></li>
+<li><p><strong>Moving the Pagefile to a Secondary Drive (e.g., D: Drive
+with 8 GB Fixed Size):</strong></p>
+<pre class="text"><code>D:\pagefile.sys 8192 8192</code></pre></li>
+<li><p><strong>System-Managed Pagefile on a Specific Drive:</strong>
+Setting both size parameters to <code>0</code> allows Windows to
+dynamically scale the pagefile on that specific drive:</p>
+<pre class="text"><code>D:\pagefile.sys 0 0</code></pre></li>
+<li><p><strong>Multiple Pagefiles Across Different Drives:</strong>
+Enter each drive configuration on a separate line within the same
+<code>PagingFiles</code> value editor:</p>
+<pre class="text"><code>C:\pagefile.sys 2048 4096
+D:\pagefile.sys 4096 8192</code></pre></li>
+<li><p><strong>Disabling the Pagefile Completely:</strong> Leave the
+<strong>Value data</strong> field blank or delete the string lines
+inside the <code>PagingFiles</code> entry.</p></li>
+</ul>
+<h3 id="step-5-apply-the-changes">Step 5: Apply the Changes</h3>
+<ol type="1">
+<li>Click <strong>OK</strong> to save the changes to the
+<code>PagingFiles</code> registry entry.</li>
+<li>Close the Registry Editor.</li>
+<li>Restart your computer for the new paging file placement and size
+configurations to take effect.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

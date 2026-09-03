@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Update Service Registry Key Location - regedit</title>
+    <meta name="description" content="This guide identifies the primary registry keys in the Windows Registry Editor (Regedit) responsible for configuring Windows Update service behavior and automated update policies. By modifying these registry values, system administrators can control auto">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/windows-update-service-registry-key-location">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Windows Update Service Registry Key Location - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/windows-update-service-registry-key-location" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide identifies the primary registry keys in the Windows Registry Editor (Regedit) responsible for configuring Windows Update service behavior and automated update policies. By modifying these registry values, system administrators can control auto" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="windows-update-service-registry-key-location">Windows Update
+Service Registry Key Location</h1>
+<p>This guide identifies the primary registry keys in the Windows
+Registry Editor (Regedit) responsible for configuring Windows Update
+service behavior and automated update policies. By modifying these
+registry values, system administrators can control automatic update
+schedules, disable or enable updates, and configure the underlying
+<code>wuauserv</code> Windows service directly.</p>
+<h3 id="1-automatic-update-behavior-policy-key">1. Automatic Update
+Behavior Policy Key</h3>
+<p>The primary registry key used to control Windows Update behavior,
+schedules, and notifications is located in the Group Policy registry
+hive:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</code></p>
+<p><em>(Note: If the <code>WindowsUpdate</code> or <code>AU</code> keys
+do not exist, they can be created manually under
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows</code>.)</em></p>
+<h4 id="key-values-in-the-au-key">Key Values in the <code>AU</code>
+Key:</h4>
+<ul>
+<li><strong><code>AUOptions</code> (DWORD):</strong> Defines the core
+update behavior:
+<ul>
+<li><code>2</code> – Notify before download and notify before
+installation.</li>
+<li><code>3</code> – Automatically download and notify for
+installation.</li>
+<li><code>4</code> – Automatically download and schedule the
+installation.</li>
+<li><code>5</code> – Allow local administrators to select the
+configuration mode.</li>
+<li><code>7</code> – Notify for download, notify for install, and notify
+for restart (Windows Server).</li>
+</ul></li>
+<li><strong><code>NoAutoUpdate</code> (DWORD):</strong>
+<ul>
+<li><code>0</code> – Automatic Updates are enabled (default).</li>
+<li><code>1</code> – Automatic Updates are disabled.</li>
+</ul></li>
+<li><strong><code>ScheduledInstallDay</code> (DWORD):</strong> Specifies
+the day of the week for installation (0 = Every day, 1 to 7 = Sunday to
+Saturday).</li>
+<li><strong><code>ScheduledInstallTime</code> (DWORD):</strong>
+Specifies the hour of the day for installation using a 24-hour format
+(0–23).</li>
+<li><strong><code>UseWUServer</code> (DWORD):</strong> Set to
+<code>1</code> to configure the client to use a local Windows Server
+Update Services (WSUS) server specified in the parent
+<code>WindowsUpdate</code> key.</li>
+</ul>
+<hr />
+<h3 id="2-windows-update-system-service-key">2. Windows Update System
+Service Key</h3>
+<p>To manage the execution, startup type, and permissions of the core
+Windows Update background service (<code>wuauserv</code>), the registry
+path is:</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv</code></p>
+<h4 id="key-values-in-the-wuauserv-key">Key Values in the
+<code>wuauserv</code> Key:</h4>
+<ul>
+<li><strong><code>Start</code> (DWORD):</strong> Controls the startup
+type of the Windows Update service:
+<ul>
+<li><code>2</code> – Automatic</li>
+<li><code>3</code> – Manual (Default)</li>
+<li><code>4</code> – Disabled</li>
+</ul></li>
+<li><strong><code>ImagePath</code> (Expandable String):</strong> Defines
+the binary path for the service (default is
+<code>%systemroot%\system32\svchost.exe -k netsvcs -p</code>).</li>
+</ul>
+<hr />
+<h3 id="how-to-access-and-modify-these-keys">How to Access and Modify
+These Keys</h3>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong>.</li>
+<li>Navigate to the desired path listed above using the left-hand
+navigation tree or by pasting the path into the address bar.</li>
+<li>Double-click the target DWORD value to change its numerical data, or
+right-click within the right pane to create a <strong>New &gt; DWORD
+(32-bit) Value</strong> if it does not already exist.</li>
+<li>Restart the computer or restart the Windows Update service via
+PowerShell (<code>Restart-Service wuauserv</code>) for policy changes to
+take effect.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

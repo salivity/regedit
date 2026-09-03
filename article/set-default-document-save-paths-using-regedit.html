@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Default Document Save Paths Using Regedit - regedit</title>
+    <meta name="description" content="Administrators can centralize and manage where classic desktop applications save files by modifying specific keys in the Windows Registry using the Registry Editor (regedit.exe). This guide outlines the exact registry paths, the key values responsible fo">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/set-default-document-save-paths-using-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Set Default Document Save Paths Using Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/set-default-document-save-paths-using-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Administrators can centralize and manage where classic desktop applications save files by modifying specific keys in the Windows Registry using the Registry Editor (regedit.exe). This guide outlines the exact registry paths, the key values responsible fo" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="set-default-document-save-paths-using-regedit">Set Default
+Document Save Paths Using Regedit</h1>
+<p>Administrators can centralize and manage where classic desktop
+applications save files by modifying specific keys in the Windows
+Registry using the Registry Editor (<code>regedit.exe</code>). This
+guide outlines the exact registry paths, the key values responsible for
+the default "Documents" directory, the step-by-step process to redirect
+paths for individual users or across the entire system, and how to
+automate these changes.</p>
+<h3 id="understanding-the-target-registry-keys">Understanding the Target
+Registry Keys</h3>
+<p>Classic Windows desktop applications rely on shell folders defined in
+the registry to determine default file dialog locations (like "Save
+As"). The primary value governing document locations is named
+<strong>Personal</strong>.</p>
+<p>The two primary registry paths are:</p>
+<ul>
+<li><strong>Current User:</strong>
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></li>
+<li><strong>System Default (Affects New User Profiles):</strong>
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></li>
+</ul>
+<h3 id="step-by-step-configuration">Step-by-Step Configuration</h3>
+<ol type="1">
+<li>Press <strong>Win + R</strong>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</li>
+<li>Navigate to:
+<pre class="text"><code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></pre></li>
+<li>Locate the value named <strong>Personal</strong> in the right
+pane.</li>
+<li>Double-click <strong>Personal</strong> and change its <strong>Value
+data</strong> to the target folder path (for example,
+<code>D:\CustomDocuments</code> or a network path
+<code>%USERPROFILE%\CustomDocs</code>).</li>
+<li>Ensure the value type is set to <code>REG_EXPAND_SZ</code> if you
+are using environment variables (such as <code>%USERPROFILE%</code> or
+<code>%USERNAME%</code>).</li>
+<li>Sign out and sign back into the Windows user account, or restart the
+<code>explorer.exe</code> process to apply the changes.</li>
+</ol>
+<h3
+id="configuring-application-specific-save-paths-microsoft-office">Configuring
+Application-Specific Save Paths (Microsoft Office)</h3>
+<p>Some classic applications, such as Microsoft Office suites, have
+their own independent default file location keys that override the
+general shell folder settings.</p>
+<ol type="1">
+<li>Navigate to the version-specific Office key (replace
+<code>16.0</code> with your Office version):
+<pre class="text"><code>HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options</code></pre></li>
+<li>Look for the string value named <strong>DOC-PATH</strong>. If it
+does not exist, right-click, select <strong>New &gt; String
+Value</strong>, and name it <code>DOC-PATH</code>.</li>
+<li>Set the value data to the full path where you want the application
+to save files by default.</li>
+</ol>
+<h3 id="automating-via-reg-file">Automating via <code>.reg</code>
+File</h3>
+<p>To deploy this configuration across multiple machines, you can create
+a standard <code>.reg</code> file containing the following code:</p>
+<pre class="reg"><code>Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
+&quot;Personal&quot;=hex(2):44,00,3a,00,5c,00,43,00,75,00,73,00,74,00,6f,00,6d,00,44,\
+  00,6f,00,63,00,73,00,00,00</code></pre>
+<p><em>Note: The hex string represents an expandable string
+(<code>REG_EXPAND_SZ</code>) containing the directory path.</em></p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

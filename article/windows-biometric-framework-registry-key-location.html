@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Biometric Framework Registry Key Location - regedit</title>
+    <meta name="description" content="The Windows Biometric Framework (WBF) manages biometric devices, such as fingerprint scanners and facial recognition cameras, across the operating system. In the Windows Registry (regedit), the core configuration and policy settings for WBF are primarily">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/windows-biometric-framework-registry-key-location">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Windows Biometric Framework Registry Key Location - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/windows-biometric-framework-registry-key-location" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Windows Biometric Framework (WBF) manages biometric devices, such as fingerprint scanners and facial recognition cameras, across the operating system. In the Windows Registry (regedit), the core configuration and policy settings for WBF are primarily" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="windows-biometric-framework-registry-key-location">Windows
+Biometric Framework Registry Key Location</h1>
+<p>The Windows Biometric Framework (WBF) manages biometric devices, such
+as fingerprint scanners and facial recognition cameras, across the
+operating system. In the Windows Registry (<code>regedit</code>), the
+core configuration and policy settings for WBF are primarily located
+under
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Biometrics</code>.
+This article outlines the primary registry paths used to manage
+biometric operations, credential provider behaviors, and the underlying
+background service.</p>
+<hr />
+<h3 id="primary-policy-registry-key">Primary Policy Registry Key</h3>
+<p>The main registry key that governs system-wide policies for the
+Windows Biometric Framework is:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Biometrics</code></pre>
+<p>Administrators use this location to enable or disable biometric
+functionality across the device via registry scripts or Group
+Policy.</p>
+<h4 id="key-values-under-biometrics">Key Values Under
+<code>\Biometrics</code></h4>
+<ul>
+<li><strong><code>Enabled</code> (DWORD)</strong>
+<ul>
+<li><code>1</code> = Biometrics allowed (Default)</li>
+<li><code>0</code> = Biometrics disabled system-wide</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="credential-provider-subkey">Credential Provider Subkey</h3>
+<p>To manage how biometrics interact with Windows sign-in and user
+authentication, settings are stored within the
+<code>Credential Provider</code> subkey:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Biometrics\Credential Provider</code></pre>
+<h4 id="key-values-under-credential-provider">Key Values Under
+<code>\Credential Provider</code></h4>
+<ul>
+<li><strong><code>Enabled</code> (DWORD)</strong>
+<ul>
+<li><code>1</code> = Allow users to log on to the local computer using
+biometrics.</li>
+<li><code>0</code> = Disallow biometric logon.</li>
+</ul></li>
+<li><strong><code>Domain Accounts</code> (DWORD)</strong>
+<ul>
+<li><code>1</code> = Allow domain users to log on using biometrics.</li>
+<li><code>0</code> = Prevent domain accounts from using biometrics.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="facial-features-subkey-windows-hello-face">Facial Features
+Subkey (Windows Hello Face)</h3>
+<p>For systems utilizing facial recognition, configuration policies are
+located under:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Biometrics\Facial Features</code></pre>
+<ul>
+<li><strong><code>EnhancedAntiSpoofing</code> (DWORD)</strong>
+<ul>
+<li><code>1</code> = Require enhanced anti-spoofing for facial
+recognition hardware.</li>
+<li><code>0</code> = Standard facial recognition.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="windows-biometric-service-wbiosrvc-key">Windows Biometric
+Service (WbioSrvc) Key</h3>
+<p>The operational configuration for the Windows Biometric Service
+itself is stored under the system services registry path:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WbioSrvc</code></pre>
+<ul>
+<li><strong><code>Start</code> (DWORD)</strong>
+<ul>
+<li><code>2</code> = Automatic startup</li>
+<li><code>3</code> = Manual startup (Default on many client
+systems)</li>
+<li><code>4</code> = Disabled</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="how-to-modify-wbf-settings-in-regedit">How to Modify WBF
+Settings in Regedit</h3>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong>.</li>
+<li>Navigate to
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft</code>.</li>
+<li>If the <code>Biometrics</code> key does not exist, right-click
+<code>Microsoft</code>, select <strong>New &gt; Key</strong>, and name
+it <code>Biometrics</code>.</li>
+<li>Inside the <code>Biometrics</code> key, create the required
+<strong>DWORD (32-bit) Value</strong> (e.g., <code>Enabled</code>).</li>
+<li>Set the value data accordingly, click <strong>OK</strong>, and
+restart the computer or restart the <code>WbioSrvc</code> service to
+apply the changes.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

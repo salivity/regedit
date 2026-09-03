@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding HKEY_USERS in Windows Registry - regedit</title>
+    <meta name="description" content="The HKEYUSERS (HKU) root key is a core pillar of the Windows Registry that stores user-specific configuration settings for all actively loaded user profiles on a machine. This article explores the architecture of HKEYUSERS, its relationship to HKEYCURREN">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/understanding-hkey-users-in-windows-registry">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding HKEY_USERS in Windows Registry - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/understanding-hkey-users-in-windows-registry" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HKEYUSERS (HKU) root key is a core pillar of the Windows Registry that stores user-specific configuration settings for all actively loaded user profiles on a machine. This article explores the architecture of HKEYUSERS, its relationship to HKEYCURREN" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-hkey_users-in-windows-registry">Understanding
+HKEY_USERS in Windows Registry</h1>
+<p>The <code>HKEY_USERS</code> (HKU) root key is a core pillar of the
+Windows Registry that stores user-specific configuration settings for
+all actively loaded user profiles on a machine. This article explores
+the architecture of <code>HKEY_USERS</code>, its relationship to
+<code>HKEY_CURRENT_USER</code>, how Security Identifiers (SIDs) are
+mapped within its structure, and the critical role it plays in managing
+multi-user environments in the Windows operating system.</p>
+<h3 id="what-is-hkey_users">What Is HKEY_USERS?</h3>
+<p><code>HKEY_USERS</code> is one of the five primary root keys (or
+hives) in the Windows Registry editor (<code>regedit.exe</code>). Its
+primary purpose is to act as the master repository for user-level
+configurations, containing individual hives for every active user
+profile currently logged into the system, as well as default and
+built-in system accounts.</p>
+<p>Unlike <code>HKEY_LOCAL_MACHINE</code> (HKLM), which stores
+machine-wide settings applicable to the operating system and all users
+regardless of who is signed in, <code>HKEY_USERS</code> handles
+customized settings such as desktop wallpapers, installed user-level
+software, environment variables, taskbar preferences, and
+application-specific settings.</p>
+<h3 id="the-internal-hierarchy-and-security-identifiers-sids">The
+Internal Hierarchy and Security Identifiers (SIDs)</h3>
+<p>Instead of listing usernames directly, <code>HKEY_USERS</code>
+organizes profiles using Windows Security Identifiers (SIDs). A SID is a
+unique string of alphanumeric characters assigned by Windows to identify
+a user, group, or computer account.</p>
+<p>Inside <code>HKEY_USERS</code>, you will typically find the following
+subkeys:</p>
+<ul>
+<li><strong><code>.DEFAULT</code></strong>: Contains base settings used
+by system accounts prior to any user logging in (often mistaken for the
+template for new users, which is actually stored in a separate template
+hive).</li>
+<li><strong>Well-Known Service Accounts</strong>: Built-in Windows
+service accounts represented by short SIDs:
+<ul>
+<li><code>S-1-5-18</code>: Local System account.</li>
+<li><code>S-1-5-19</code>: Local Service account.</li>
+<li><code>S-1-5-20</code>: Network Service account.</li>
+</ul></li>
+<li><strong>User Profile SIDs</strong>: Unique identifier keys for
+active users, typically starting with <code>S-1-5-21-...</code>.</li>
+<li><strong><code>_Classes</code> Subkeys</strong>: Keys ending in
+<code>_Classes</code> (e.g., <code>S-1-5-21-..._Classes</code>) contain
+user-specific file associations and COM registrations.</li>
+</ul>
+<h3 id="the-relationship-between-hkey_users-and-hkey_current_user">The
+Relationship Between HKEY_USERS and HKEY_CURRENT_USER</h3>
+<p><code>HKEY_CURRENT_USER</code> (HKCU) is not an independent registry
+hive. Instead, it is a dynamic alias or symbolic link to the specific
+SID subkey within <code>HKEY_USERS</code> that belongs to the currently
+logged-in user.</p>
+<p>When an application reads or writes to
+<code>HKEY_CURRENT_USER</code>, the operating system automatically
+redirects those requests to <code>HKEY_USERS\&lt;User-SID&gt;</code>.
+This mechanism allows software developers to target current user
+configurations without needing to programmatically query the user's
+specific SID first.</p>
+<h3 id="how-profile-loading-and-unloading-works">How Profile Loading and
+Unloading Works</h3>
+<p>The contents of <code>HKEY_USERS</code> are dynamic:</p>
+<ol type="1">
+<li><strong>Logon</strong>: When a user logs into Windows, the operating
+system reads their individual registry file—<code>NTUSER.DAT</code>,
+located in <code>C:\Users\&lt;Username&gt;</code>—and loads it as a
+subkey under <code>HKEY_USERS</code> matching that user's SID.</li>
+<li><strong>Active Session</strong>: Any preferences modified during the
+session are written to this memory-backed hive.</li>
+<li><strong>Logoff</strong>: When the user signs out, Windows flushes
+the changes back to the <code>NTUSER.DAT</code> file on disk and unloads
+the subkey from <code>HKEY_USERS</code>, freeing system memory.</li>
+</ol>
+<h3 id="summary-of-key-functions">Summary of Key Functions</h3>
+<ul>
+<li><strong>Multi-User Isolation</strong>: Ensures that individual user
+settings, permissions, and app configurations do not conflict with or
+overwrite those of other users.</li>
+<li><strong>Foundation for HKCU</strong>: Provides the actual storage
+location for the active user session exposed through the
+<code>HKEY_CURRENT_USER</code> shortcut.</li>
+<li><strong>System and Service Configuration</strong>: Hosts baseline
+configurations for critical background services and system processes
+operating under distinct identity contexts.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

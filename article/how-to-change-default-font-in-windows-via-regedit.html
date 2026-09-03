@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Change Default Font in Windows via Regedit - regedit</title>
+    <meta name="description" content="Windows uses Segoe UI as its standard font for desktop elements, menus, icon labels, and file explorer views. While Windows Settings does not provide a direct option to switch the system-wide typeface, you can force the operating system to render a speci">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/how-to-change-default-font-in-windows-via-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Change Default Font in Windows via Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/how-to-change-default-font-in-windows-via-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows uses Segoe UI as its standard font for desktop elements, menus, icon labels, and file explorer views. While Windows Settings does not provide a direct option to switch the system-wide typeface, you can force the operating system to render a speci" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-change-default-font-in-windows-via-regedit">How to Change
+Default Font in Windows via Regedit</h1>
+<p>Windows uses Segoe UI as its standard font for desktop elements,
+menus, icon labels, and file explorer views. While Windows Settings does
+not provide a direct option to switch the system-wide typeface, you can
+force the operating system to render a specific font family across
+desktop elements using the Windows Registry. This guide explains how to
+identify your desired font, create and apply the required registry
+modification file, and revert the changes if necessary.</p>
+<h3 id="step-1-identify-the-exact-font-name">Step 1: Identify the Exact
+Font Name</h3>
+<p>Before modifying the registry, obtain the precise full name of the
+font you want to apply:</p>
+<ol type="1">
+<li>Open <strong>Settings</strong> by pressing
+<code>Win + I</code>.</li>
+<li>Navigate to <strong>Personalization</strong> &gt;
+<strong>Fonts</strong>.</li>
+<li>Browse or search for your chosen font family.</li>
+<li>Note the exact name shown under the font preview (e.g.,
+<em>Arial</em>, <em>Calibri</em>, <em>Tahoma</em>, or <em>Comic Sans
+MS</em>).</li>
+</ol>
+<hr />
+<h3 id="step-2-create-the-registry-script">Step 2: Create the Registry
+Script</h3>
+<p>Manually changing dozens of font values in the Registry Editor is
+prone to error. Creating a <code>.reg</code> file automates the override
+safely.</p>
+<ol type="1">
+<li>Open <strong>Notepad</strong> on your computer.</li>
+<li>Copy and paste the following text block into Notepad:</li>
+</ol>
+<pre class="reg"><code>Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts]
+&quot;Segoe UI (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Bold (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Bold Italic (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Custom-rendered (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Italic (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Light (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Semibold (TrueType)&quot;=&quot;&quot;
+&quot;Segoe UI Symbol (TrueType)&quot;=&quot;&quot;
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+&quot;Segoe UI&quot;=&quot;NEW_FONT_NAME&quot;</code></pre>
+<ol start="3" type="1">
+<li>Replace <code>NEW_FONT_NAME</code> on the last line with the exact
+font name you noted in Step 1. Keep the quotation marks (for example,
+<code>"Segoe UI"="Arial"</code>).</li>
+<li>Click <strong>File</strong> &gt; <strong>Save As</strong>.</li>
+<li>Set the <strong>Save as type</strong> dropdown to <strong>All Files
+(<em>.</em>)</strong>.</li>
+<li>Name the file <code>ChangeFont.reg</code> and save it to your
+Desktop.</li>
+</ol>
+<hr />
+<h3 id="step-3-apply-the-registry-changes">Step 3: Apply the Registry
+Changes</h3>
+<ol type="1">
+<li>Double-click the newly created <code>ChangeFont.reg</code>
+file.</li>
+<li>Click <strong>Yes</strong> when prompted by User Account Control
+(UAC).</li>
+<li>Click <strong>Yes</strong> to confirm adding the information to the
+registry, then click <strong>OK</strong>.</li>
+<li>Restart your computer or sign out of your user account and sign back
+in to apply the changes across all desktop interface elements.</li>
+</ol>
+<hr />
+<h3 id="how-to-restore-the-default-windows-font">How to Restore the
+Default Windows Font</h3>
+<p>If you want to revert back to the standard Segoe UI font at any
+time:</p>
+<ol type="1">
+<li>Open <strong>Notepad</strong>.</li>
+<li>Paste the following configuration:</li>
+</ol>
+<pre class="reg"><code>Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts]
+&quot;Segoe UI (TrueType)&quot;=&quot;segoeui.ttf&quot;
+&quot;Segoe UI Black (TrueType)&quot;=&quot;seguibl.ttf&quot;
+&quot;Segoe UI Black Italic (TrueType)&quot;=&quot;seguibli.ttf&quot;
+&quot;Segoe UI Bold (TrueType)&quot;=&quot;segoeuib.ttf&quot;
+&quot;Segoe UI Bold Italic (TrueType)&quot;=&quot;segoeuiy.ttf&quot;
+&quot;Segoe UI Custom-rendered (TrueType)&quot;=&quot;segoeui.ttf&quot;
+&quot;Segoe UI Emoji (TrueType)&quot;=&quot;seguiemj.ttf&quot;
+&quot;Segoe UI Historic (TrueType)&quot;=&quot;seguihis.ttf&quot;
+&quot;Segoe UI Italic (TrueType)&quot;=&quot;segoeuii.ttf&quot;
+&quot;Segoe UI Light (TrueType)&quot;=&quot;segoeuil.ttf&quot;
+&quot;Segoe UI Light Italic (TrueType)&quot;=&quot;seguili.ttf&quot;
+&quot;Segoe UI Semibold (TrueType)&quot;=&quot;seguisb.ttf&quot;
+&quot;Segoe UI Semibold Italic (TrueType)&quot;=&quot;seguisbi.ttf&quot;
+&quot;Segoe UI Semilight (TrueType)&quot;=&quot;segoeuisl.ttf&quot;
+&quot;Segoe UI Semilight Italic (TrueType)&quot;=&quot;seguisli.ttf&quot;
+&quot;Segoe UI Symbol (TrueType)&quot;=&quot;seguisym.ttf&quot;
+&quot;Segoe MDL2 Assets (TrueType)&quot;=&quot;segmdl2.ttf&quot;
+&quot;Segoe Print (TrueType)&quot;=&quot;segoepr.ttf&quot;
+&quot;Segoe Print Bold (TrueType)&quot;=&quot;segoeprb.ttf&quot;
+&quot;Segoe Script (TrueType)&quot;=&quot;segoesc.ttf&quot;
+&quot;Segoe Script Bold (TrueType)&quot;=&quot;segoescb.ttf&quot;
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+&quot;Segoe UI&quot;=-</code></pre>
+<ol start="3" type="1">
+<li>Save the file as <code>RestoreFont.reg</code> with <strong>All Files
+(<em>.</em>)</strong> selected.</li>
+<li>Double-click <code>RestoreFont.reg</code>, confirm the prompts, and
+restart your system.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

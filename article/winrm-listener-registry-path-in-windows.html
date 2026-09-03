@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinRM Listener Registry Path in Windows - regedit</title>
+    <meta name="description" content="This article explains the exact Windows Registry path used to store and control Windows Remote Management (WinRM) listener configurations. It details the specific registry keys responsible for HTTP and HTTPS listeners, the values contained within them, a">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/winrm-listener-registry-path-in-windows">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WinRM Listener Registry Path in Windows - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/winrm-listener-registry-path-in-windows" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the exact Windows Registry path used to store and control Windows Remote Management (WinRM) listener configurations. It details the specific registry keys responsible for HTTP and HTTPS listeners, the values contained within them, a" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="winrm-listener-registry-path-in-windows">WinRM Listener Registry
+Path in Windows</h1>
+<p>This article explains the exact Windows Registry path used to store
+and control Windows Remote Management (WinRM) listener configurations.
+It details the specific registry keys responsible for HTTP and HTTPS
+listeners, the values contained within them, and the recommended methods
+for managing WinRM settings safely.</p>
+<h2 id="the-winrm-listener-registry-key">The WinRM Listener Registry
+Key</h2>
+<p>The primary registry path that stores and controls WinRM listener
+settings in the Windows Registry Editor (<code>regedit</code>) is:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN\Listener</code></p>
+<p>Within this location, WinRM creates subkeys for each active listener
+based on the IP binding and transport protocol.</p>
+<p>Common subkeys found under this path include:</p>
+<ul>
+<li><strong><code>*\+HTTP</code></strong>: Contains settings for default
+HTTP listeners across all IP addresses.</li>
+<li><strong><code>*\+HTTPS</code></strong>: Contains settings for
+default HTTPS listeners across all IP addresses.</li>
+</ul>
+<h2 id="key-values-inside-the-listener-path">Key Values Inside the
+Listener Path</h2>
+<p>Inside each listener subkey, several DWORD and String values define
+how WinRM listens for incoming connections:</p>
+<ul>
+<li><strong><code>Port</code> (DWORD):</strong> Specifies the port
+number used by the listener (default is <code>5985</code> for HTTP and
+<code>5986</code> for HTTPS).</li>
+<li><strong><code>Enabled</code> (DWORD):</strong> Controls the
+operational state of the listener (<code>1</code> for enabled,
+<code>0</code> for disabled).</li>
+<li><strong><code>CertificateThumbprint</code> (String):</strong> Used
+in HTTPS listeners to specify the SHA-1 thumbprint of the SSL/TLS
+certificate bound to the service.</li>
+<li><strong><code>Hostname</code> (String):</strong> Defines the host
+name or IP address associated with the listener.</li>
+<li><strong><code>URLPrefix</code> (String):</strong> Specifies the URL
+prefix on which to accept HTTP or HTTPS requests (typically
+<code>wsman</code>).</li>
+</ul>
+<h2 id="general-winrm-service-settings">General WinRM Service
+Settings</h2>
+<p>Broader service-level configurations that affect how listeners
+operate are located under the parent service registry path:</p>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN\Service</code></p>
+<p>This path controls authentication methods (such as Basic, Kerberos,
+or CredSSP), max concurrent operations, and network timeout values.</p>
+<h2 id="managing-winrm-listeners-safely">Managing WinRM Listeners
+Safely</h2>
+<p>While these values can be viewed and edited in <code>regedit</code>,
+manual changes to the registry can cause service instability if formats
+are invalid. It is generally recommended to inspect or modify listeners
+using the built-in management tools:</p>
+<ul>
+<li><strong>WinRM CLI:</strong> Run
+<code>winrm enumerate winrm/config/listener</code> to view listeners, or
+<code>winrm get winrm/config</code> for the complete configuration.</li>
+<li><strong>PowerShell:</strong> Use the WSMan provider via
+<code>Get-ChildItem -Path WSMan:\localhost\Listener</code> to interact
+directly with listener configurations through structured commands.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

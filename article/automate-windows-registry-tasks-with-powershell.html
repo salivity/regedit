@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automate Windows Registry Tasks with PowerShell - regedit</title>
+    <meta name="description" content="PowerShell provides a fast, scriptable alternative to manually navigating and editing the Windows Registry through regedit.exe. By treating the registry as a hierarchical file system drive using the built-in Registry Provider, PowerShell allows administr">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/automate-windows-registry-tasks-with-powershell">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Automate Windows Registry Tasks with PowerShell - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/automate-windows-registry-tasks-with-powershell" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="PowerShell provides a fast, scriptable alternative to manually navigating and editing the Windows Registry through regedit.exe. By treating the registry as a hierarchical file system drive using the built-in Registry Provider, PowerShell allows administr" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="automate-windows-registry-tasks-with-powershell">Automate
+Windows Registry Tasks with PowerShell</h1>
+<p>PowerShell provides a fast, scriptable alternative to manually
+navigating and editing the Windows Registry through
+<code>regedit.exe</code>. By treating the registry as a hierarchical
+file system drive using the built-in Registry Provider, PowerShell
+allows administrators to create, read, modify, and delete registry keys
+and values programmatically. This guide outlines how standard registry
+management tasks can be completely automated using core PowerShell
+cmdlets.</p>
+<h2 id="accessing-registry-drives">Accessing Registry Drives</h2>
+<p>PowerShell exposes the registry via PSDrives, mapping standard
+registry hives to drive letters:</p>
+<ul>
+<li><code>HKLM:</code> corresponds to
+<code>HKEY_LOCAL_MACHINE</code></li>
+<li><code>HKCU:</code> corresponds to
+<code>HKEY_CURRENT_USER</code></li>
+</ul>
+<p>You can navigate these paths just like a standard file system using
+<code>Set-Location</code> (<code>cd</code>):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-Location</span> <span class="op">-</span>Path <span class="st">&quot;HKLM:\Software\Policies\Microsoft&quot;</span></span></code></pre></div>
+<h2 id="creating-new-registry-keys-and-values">Creating New Registry
+Keys and Values</h2>
+<p>In Regedit, creating a key or value requires right-clicking within a
+hive. In PowerShell, keys are treated as items, while registry values
+are treated as properties of those items.</p>
+<h3 id="creating-a-key">Creating a Key</h3>
+<p>Use <code>New-Item</code> to create a registry key:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">New-Item</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software&quot;</span> <span class="op">-</span>Name <span class="st">&quot;CustomApp&quot;</span> <span class="op">-</span>Force</span></code></pre></div>
+<h3 id="creating-a-value">Creating a Value</h3>
+<p>Use <code>New-ItemProperty</code> to add a new value (such as
+<code>DWORD</code>, <code>String</code>, or <code>Binary</code>) inside
+a key:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">New-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software\CustomApp&quot;</span> <span class="op">-</span>Name <span class="st">&quot;EnableFeature&quot;</span> <span class="op">-</span>Value <span class="dv">1</span> <span class="op">-</span>PropertyType DWORD <span class="op">-</span>Force</span></code></pre></div>
+<h2 id="reading-registry-data">Reading Registry Data</h2>
+<p>Instead of manually expanding paths in Regedit to inspect entries,
+use <code>Get-ItemProperty</code> to retrieve specific values:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software\CustomApp&quot;</span> <span class="op">-</span>Name <span class="st">&quot;EnableFeature&quot;</span></span></code></pre></div>
+<p>To list all values and subkeys within a specific path, use
+<code>Get-ChildItem</code>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> <span class="op">-</span>Path <span class="st">&quot;HKLM:\Software\Microsoft\Windows\CurrentVersion&quot;</span></span></code></pre></div>
+<h2 id="modifying-existing-registry-values">Modifying Existing Registry
+Values</h2>
+<p>To change an existing registry setting without opening the GUI
+editor, use <code>Set-ItemProperty</code>:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software\CustomApp&quot;</span> <span class="op">-</span>Name <span class="st">&quot;EnableFeature&quot;</span> <span class="op">-</span>Value <span class="dv">0</span></span></code></pre></div>
+<p>This command directly updates the data for the specified property,
+equivalent to double-clicking a value in Regedit and altering its value
+data.</p>
+<h2 id="deleting-keys-and-values">Deleting Keys and Values</h2>
+<p>PowerShell separates the deletion of registry keys from the deletion
+of individual values inside those keys.</p>
+<h3 id="deleting-a-value">Deleting a Value</h3>
+<p>Use <code>Remove-ItemProperty</code> to delete a single named
+value:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software\CustomApp&quot;</span> <span class="op">-</span>Name <span class="st">&quot;EnableFeature&quot;</span></span></code></pre></div>
+<h3 id="deleting-a-key">Deleting a Key</h3>
+<p>Use <code>Remove-Item</code> to delete an entire key and its
+contents:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Path <span class="st">&quot;HKCU:\Software\CustomApp&quot;</span> <span class="op">-</span>Recurse</span></code></pre></div>
+<h2 id="automating-across-multiple-machines">Automating Across Multiple
+Machines</h2>
+<p>Unlike Regedit, which primarily targets the local computer or
+requires connecting to remote registries one by one, PowerShell can
+execute registry modifications across multiple endpoints simultaneously
+using <code>Invoke-Command</code>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">$Computers</span> <span class="op">=</span> <span class="op">@(</span><span class="st">&quot;Server01&quot;</span><span class="op">,</span> <span class="st">&quot;Server02&quot;</span><span class="op">,</span> <span class="st">&quot;Server03&quot;</span><span class="op">)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Invoke-Command</span> <span class="op">-</span>ComputerName <span class="va">$Computers</span> <span class="op">-</span>ScriptBlock <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Set-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server&quot;</span> <span class="op">-</span>Name <span class="st">&quot;fDenyTSConnections&quot;</span> <span class="op">-</span>Value <span class="dv">0</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This approach allows configuration changes, security hardening, and
+troubleshooting steps to be integrated into deployment pipelines and
+automated administrative tasks.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry Paths for File Icons and Open Commands - regedit</title>
+    <meta name="description" content="In the Windows Registry, custom file type icons and default shell open commands are primarily organized under the HKEYCLASSESROOT hive using Programmatic Identifiers (ProgIDs). This article explains the exact registry keys responsible for linking file ex">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/registry-paths-for-file-icons-and-open-commands">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Registry Paths for File Icons and Open Commands - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/registry-paths-for-file-icons-and-open-commands" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In the Windows Registry, custom file type icons and default shell open commands are primarily organized under the HKEYCLASSESROOT hive using Programmatic Identifiers (ProgIDs). This article explains the exact registry keys responsible for linking file ex" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="registry-paths-for-file-icons-and-open-commands">Registry Paths
+for File Icons and Open Commands</h1>
+<p>In the Windows Registry, custom file type icons and default shell
+open commands are primarily organized under the
+<code>HKEY_CLASSES_ROOT</code> hive using Programmatic Identifiers
+(ProgIDs). This article explains the exact registry keys responsible for
+linking file extensions to specific application handlers, defining
+custom icon resources, and setting the default launch commands executed
+when opening files in Windows.</p>
+<h3 id="understanding-file-extension-mapping-to-progids">Understanding
+File Extension Mapping to ProgIDs</h3>
+<p>Before locating the icon and command keys, Windows determines the
+file's ProgID:</p>
+<ol type="1">
+<li>Navigate to <code>HKEY_CLASSES_ROOT\.extension</code> (for example,
+<code>.txt</code> or <code>.pdf</code>).</li>
+<li>The <code>(Default)</code> value inside this extension key specifies
+the associated ProgID name (such as <code>txtfile</code> or
+<code>AcroExch.Document</code>).</li>
+</ol>
+<h3 id="custom-file-type-icons-location">Custom File Type Icons
+Location</h3>
+<p>Custom file icons are defined within the <code>DefaultIcon</code>
+subkey of the assigned ProgID:</p>
+<ul>
+<li><strong>Registry Path:</strong>
+<code>HKEY_CLASSES_ROOT\&lt;ProgID&gt;\DefaultIcon</code></li>
+<li><strong>Value Name:</strong> <code>(Default)</code> (Type:
+<code>REG_SZ</code> or <code>REG_EXPAND_SZ</code>)</li>
+<li><strong>Value Data Format:</strong>
+<code>"C:\Path\To\Application.exe",0</code> or
+<code>"C:\Path\To\Icons.ico"</code></li>
+</ul>
+<p>The number at the end of the path specifies the zero-based index of
+the icon resource embedded within the executable or DLL.</p>
+<h3 id="default-shell-open-commands-location">Default Shell Open
+Commands Location</h3>
+<p>The command executed when opening a file is defined inside the
+<code>shell\open\command</code> subkey of the assigned ProgID:</p>
+<ul>
+<li><strong>Registry Path:</strong>
+<code>HKEY_CLASSES_ROOT\&lt;ProgID&gt;\shell\open\command</code></li>
+<li><strong>Value Name:</strong> <code>(Default)</code> (Type:
+<code>REG_SZ</code> or <code>REG_EXPAND_SZ</code>)</li>
+<li><strong>Value Data Format:</strong>
+<code>"C:\Path\To\Application.exe" "%1"</code></li>
+</ul>
+<p>The <code>"%1"</code> parameter is a placeholder that Windows
+automatically replaces with the target file path when
+double-clicked.</p>
+<h3 id="system-wide-vs-current-user-precedence">System-Wide vs.
+Current-User Precedence</h3>
+<p><code>HKEY_CLASSES_ROOT</code> is a merged view of two distinct
+physical locations:</p>
+<ul>
+<li><strong>System-wide settings (All Users):</strong><br />
+<code>HKEY_LOCAL_MACHINE\Software\Classes\&lt;ProgID&gt;</code></li>
+<li><strong>User-specific overrides (Current User):</strong><br />
+<code>HKEY_CURRENT_USER\Software\Classes\&lt;ProgID&gt;</code></li>
+</ul>
+<p>If an entry exists in <code>HKEY_CURRENT_USER</code>, it overrides
+the equivalent entry in <code>HKEY_LOCAL_MACHINE</code>.</p>
+<p>Additionally, modern versions of Windows store active per-user
+default program overrides under:
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.extension\UserChoice</code></p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

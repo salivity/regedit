@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Disable Bing in Windows Start Menu with Regedit - regedit</title>
+    <meta name="description" content="Windows includes Bing web search results natively within the Start menu, which can clutter your search results and slow down local file queries. This guide provides the direct steps to turn off Bing search integration in Windows 10 and Windows 11 using t">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/how-to-disable-bing-in-windows-start-menu-with-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Disable Bing in Windows Start Menu with Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/how-to-disable-bing-in-windows-start-menu-with-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows includes Bing web search results natively within the Start menu, which can clutter your search results and slow down local file queries. This guide provides the direct steps to turn off Bing search integration in Windows 10 and Windows 11 using t" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-disable-bing-in-windows-start-menu-with-regedit">How to
+Disable Bing in Windows Start Menu with Regedit</h1>
+<p>Windows includes Bing web search results natively within the Start
+menu, which can clutter your search results and slow down local file
+queries. This guide provides the direct steps to turn off Bing search
+integration in Windows 10 and Windows 11 using the Windows Registry
+Editor (Regedit), restricting your Start menu searches exclusively to
+local files, applications, and settings.</p>
+<h3 id="step-1-open-the-registry-editor">Step 1: Open the Registry
+Editor</h3>
+<p>Press <code>Windows Key + R</code> to open the Run dialog box. Type
+<code>regedit</code> and press <code>Enter</code> (or click
+<strong>OK</strong>). When the User Account Control prompt appears,
+click <strong>Yes</strong> to grant administrator privileges.</p>
+<h3 id="step-2-navigate-to-the-windows-policies-key">Step 2: Navigate to
+the Windows Policies Key</h3>
+<p>In the Registry Editor's address bar at the top, paste the following
+path and press <code>Enter</code>:</p>
+<p><code>HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows</code></p>
+<p>Alternatively, use the left sidebar to manually navigate to that
+directory.</p>
+<h3 id="step-3-create-the-explorer-key">Step 3: Create the Explorer
+Key</h3>
+<p>Look for a subkey named <strong>Explorer</strong> under the
+<strong>Windows</strong> folder:</p>
+<ul>
+<li>If the <strong>Explorer</strong> key is already there, select
+it.</li>
+<li>If it is not present, right-click the <strong>Windows</strong> key
+in the left pane, hover over <strong>New</strong>, select
+<strong>Key</strong>, and name it <code>Explorer</code>.</li>
+</ul>
+<h3 id="step-4-create-the-dword-value">Step 4: Create the DWORD
+Value</h3>
+<p>With the <strong>Explorer</strong> key selected:</p>
+<ol type="1">
+<li>Right-click on any empty area inside the right pane.</li>
+<li>Select <strong>New</strong> &gt; <strong>DWORD (32-bit)
+Value</strong>.</li>
+<li>Name this new entry <code>DisableSearchBoxSuggestions</code> and
+press <code>Enter</code>.</li>
+</ol>
+<h3 id="step-5-change-the-value-data">Step 5: Change the Value Data</h3>
+<ol type="1">
+<li>Double-click the <code>DisableSearchBoxSuggestions</code> entry you
+just created.</li>
+<li>In the <strong>Value data</strong> field, change the number from
+<code>0</code> to <code>1</code>.</li>
+<li>Leave the Base setting on <strong>Hexadecimal</strong> and click
+<strong>OK</strong>.</li>
+</ol>
+<h3 id="step-6-restart-windows-explorer">Step 6: Restart Windows
+Explorer</h3>
+<p>To apply the changes immediately:</p>
+<ol type="1">
+<li>Press <code>Ctrl + Shift + Esc</code> to launch the <strong>Task
+Manager</strong>.</li>
+<li>Scroll down the <strong>Processes</strong> list and locate
+<strong>Windows Explorer</strong>.</li>
+<li>Right-click <strong>Windows Explorer</strong> and select
+<strong>Restart</strong>.</li>
+</ol>
+<p>The Start menu will now only display local search results and will no
+longer query Bing. To revert this setting at any time, return to the
+<code>DisableSearchBoxSuggestions</code> registry entry and change the
+value back to <code>0</code>, or delete the entry.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

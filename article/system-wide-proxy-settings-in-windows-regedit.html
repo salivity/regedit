@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System-Wide Proxy Settings in Windows Regedit - regedit</title>
+    <meta name="description" content="Configuring a system-wide proxy via the Windows Registry (Regedit) allows administrators to route all network traffic on a machine through a designated proxy server, applying settings across all user accounts and system services. This article covers the">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/system-wide-proxy-settings-in-windows-regedit">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="System-Wide Proxy Settings in Windows Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/system-wide-proxy-settings-in-windows-regedit" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Configuring a system-wide proxy via the Windows Registry (Regedit) allows administrators to route all network traffic on a machine through a designated proxy server, applying settings across all user accounts and system services. This article covers the" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="system-wide-proxy-settings-in-windows-regedit">System-Wide Proxy
+Settings in Windows Regedit</h1>
+<p>Configuring a system-wide proxy via the Windows Registry (Regedit)
+allows administrators to route all network traffic on a machine through
+a designated proxy server, applying settings across all user accounts
+and system services. This article covers the exact registry paths and
+key values required to configure, enable, and enforce machine-wide proxy
+settings in Windows.</p>
+<h3 id="1-the-primary-registry-keys-for-proxy-configuration">1. The
+Primary Registry Keys for Proxy Configuration</h3>
+<p>Windows handles proxy configurations at both the per-user and
+per-machine levels. For system-wide proxy settings, the relevant keys
+are located in <code>HKEY_LOCAL_MACHINE</code>.</p>
+<ul>
+<li><strong>Machine-Wide Internet Settings:</strong><br />
+<code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings</code></li>
+<li><strong>Group Policy Managed Settings:</strong><br />
+<code>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings</code></li>
+<li><strong>WinHTTP (Services and System Traffic):</strong><br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Connections</code></li>
+</ul>
+<hr />
+<h3 id="2-enforcing-machine-wide-proxy-over-per-user-settings">2.
+Enforcing Machine-Wide Proxy Over Per-User Settings</h3>
+<p>By default, Windows applies proxy settings on a per-user basis
+(<code>HKEY_CURRENT_USER</code>). To force the entire operating system
+to use the settings defined in <code>HKEY_LOCAL_MACHINE</code>, you must
+modify the <code>ProxySettingsPerUser</code> policy:</p>
+<ol type="1">
+<li>Navigate to:<br />
+<code>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings</code></li>
+<li>Create or modify a <strong>DWORD (32-bit) Value</strong> named
+<code>ProxySettingsPerUser</code>.</li>
+<li>Set the value to <code>0</code>.</li>
+</ol>
+<p>Setting this value to <code>0</code> makes proxy settings apply to
+all users on the computer instead of individual user profiles.</p>
+<hr />
+<h3 id="3-key-values-for-configuring-the-proxy">3. Key Values for
+Configuring the Proxy</h3>
+<p>Within
+<code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings</code>
+(or the equivalent <code>Policies</code> path), the following values
+define the proxy behavior:</p>
+<ul>
+<li><strong><code>ProxyEnable</code></strong> (DWORD):
+<ul>
+<li><code>1</code> = Proxy enabled</li>
+<li><code>0</code> = Proxy disabled</li>
+</ul></li>
+<li><strong><code>ProxyServer</code></strong> (String /
+<code>REG_SZ</code>):
+<ul>
+<li>Sets the IP address and port (e.g., <code>192.168.1.100:8080</code>
+or <code>proxy.example.com:8080</code>).</li>
+</ul></li>
+<li><strong><code>ProxyOverride</code></strong> (String /
+<code>REG_SZ</code>):
+<ul>
+<li>Specifies addresses that bypass the proxy, separated by semicolons
+(e.g., <code>localhost;127.0.0.1;&lt;local&gt;</code>).</li>
+</ul></li>
+<li><strong><code>AutoConfigURL</code></strong> (String /
+<code>REG_SZ</code>):
+<ul>
+<li>Specifies the URL for a PAC (Proxy Auto-Configuration) script if
+using automatic configuration.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="4-configuring-winhttp-proxy-for-system-services">4. Configuring
+WinHTTP Proxy for System Services</h3>
+<p>Background system services, such as Windows Update, use the WinHTTP
+stack rather than the standard Internet Explorer/WinINet stack.</p>
+<ul>
+<li>Registry Location:<br />
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Connections</code></li>
+<li>Value Name: <code>WinHttpSettings</code> (Binary /
+<code>REG_BINARY</code>)</li>
+</ul>
+<p>Because <code>WinHttpSettings</code> is stored in binary format, it
+is standard practice to set it via the Command Prompt using the
+following command, which writes directly to the registry:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>netsh winhttp set proxy 192.168.1.100:8080 <span class="st">&quot;&lt;local&gt;;*.example.com&quot;</span></span></code></pre></div>
+<p>To import the proxy already configured in the registry via WinINet to
+WinHTTP, run:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>netsh winhttp import proxy source=ie</span></code></pre></div></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITS Bandwidth Throttling Registry Location - regedit</title>
+    <meta name="description" content="This article explains the exact Windows Registry location where Background Intelligent Transfer Service (BITS) bandwidth throttling schedules and limits are cataloged. It outlines the specific registry path, the individual values responsible for managing">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/bits-bandwidth-throttling-registry-location">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="BITS Bandwidth Throttling Registry Location - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/bits-bandwidth-throttling-registry-location" />
+    <meta property="og:image:url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the exact Windows Registry location where Background Intelligent Transfer Service (BITS) bandwidth throttling schedules and limits are cataloged. It outlines the specific registry path, the individual values responsible for managing" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="bits-bandwidth-throttling-registry-location">BITS Bandwidth
+Throttling Registry Location</h1>
+<p>This article explains the exact Windows Registry location where
+Background Intelligent Transfer Service (BITS) bandwidth throttling
+schedules and limits are cataloged. It outlines the specific registry
+path, the individual values responsible for managing transfer rate
+schedules during work and non-work hours, and how administrators can
+locate or verify these settings using the Registry Editor (Regedit).</p>
+<h2 id="primary-registry-path-for-bits-throttling-policies">Primary
+Registry Path for BITS Throttling Policies</h2>
+<p>The bandwidth throttling schedules and limits applied to BITS via
+local configuration or Group Policy are stored under the following
+registry key:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\BITS</code></pre>
+<p>If the policies have not been configured on the system, the
+<code>BITS</code> subkey under <code>Windows</code> may not exist by
+default until a policy is enabled or manually created.</p>
+<hr />
+<h2 id="registry-values-defining-bits-throttling-schedules">Registry
+Values Defining BITS Throttling Schedules</h2>
+<p>Within the
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\BITS</code>
+key, specific <code>DWORD</code> values dictate when throttling occurs
+and what network limits are enforced:</p>
+<ul>
+<li><strong><code>EnableBitsMaxBandwidth</code></strong>: Enables or
+disables the maximum network bandwidth limitation for BITS transfers
+(<code>1</code> = Enabled, <code>0</code> = Disabled).</li>
+<li><strong><code>MaxBandwidthValidFrom</code></strong>: Defines the
+start time for the scheduled throttling window (represented in 24-hour
+format, e.g., <code>8</code> for 8:00 AM).</li>
+<li><strong><code>MaxBandwidthValidTo</code></strong>: Defines the end
+time for the scheduled throttling window (e.g., <code>17</code> for 5:00
+PM).</li>
+<li><strong><code>MaxBandwidthRate</code></strong>: Specifies the
+maximum transfer rate allowed in kilobits per second (Kbps) during the
+scheduled time window.</li>
+<li><strong><code>MaxBandwidthRateHighPriority</code></strong>: Sets the
+throttling cap specifically for high-priority BITS transfers.</li>
+<li><strong><code>MaxBandwidthRateNormalPriority</code></strong>: Sets
+the throttling cap specifically for normal-priority BITS transfers.</li>
+<li><strong><code>MaxBandwidthRateLowPriority</code></strong>: Sets the
+throttling cap specifically for low-priority BITS transfers.</li>
+<li><strong><code>MaxBandwidthRateBackground</code></strong>: Sets the
+baseline transfer limit applied outside the scheduled peak window.</li>
+</ul>
+<hr />
+<h2 id="how-to-view-and-edit-the-configuration-in-regedit">How to View
+and Edit the Configuration in Regedit</h2>
+<ol type="1">
+<li>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</li>
+<li>Navigate to:
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\BITS</code></li>
+<li>Locate the schedule parameters in the right-hand pane to inspect or
+modify the active throttling rules.</li>
+<li>Restart the <strong>Background Intelligent Transfer Service</strong>
+via <code>services.msc</code> or restart the computer for manual
+registry modifications to take effect immediately.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
