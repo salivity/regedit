@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Device Class Installation via Regedit - regedit</title>
+    <meta name="description" content="This article explains how to prevent users and the system from installing specific hardware device classes, such as webcams or imaging devices, using the Windows Registry Editor (regedit). By configuring device restriction registry keys and targeting uniq">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/block-device-class-installation-via-regedit">
+    <link rel="search" type="application/opensearchdescription+xml" title="regedit" href="/regedit/opensearch.xml">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Block Device Class Installation via Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/block-device-class-installation-via-regedit" />
+    <meta property="og:image" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how to prevent users and the system from installing specific hardware device classes, such as webcams or imaging devices, using the Windows Registry Editor (regedit). By configuring device restriction registry keys and targeting uniq" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+    <div class="article-layout">
+        <aside id="profile-sidebar" class="profile-column" aria-label="Author Profile"></aside>
+        <div class="article-main-column">
+            <article><h1 id="block-device-class-installation-via-regedit">Block Device Class
+Installation via Regedit</h1>
+<p>This article explains how to prevent users and the system from
+installing specific hardware device classes, such as webcams or imaging
+devices, using the Windows Registry Editor (<code>regedit</code>). By
+configuring device restriction registry keys and targeting unique Device
+Setup Class Globally Unique Identifiers (GUIDs), administrators can
+enforce strict hardware installation policies across Windows
+workstations.</p>
+<h3 id="step-1-find-the-device-setup-class-guid">Step 1: Find the Device
+Setup Class GUID</h3>
+<p>Every hardware category in Windows has a specific Class GUID. To
+block a device class, you must first identify its identifier.</p>
+<ul>
+<li><strong>Cameras:</strong>
+<code>{ca3e7ab9-b4c3-4ae6-8251-579ef933890f}</code></li>
+<li><strong>Imaging Devices (older webcams and scanners):</strong>
+<code>{6bdd1fc6-810f-11d0-bec7-08002be2092f}</code></li>
+<li><strong>USB Devices:</strong>
+<code>{36fc9e60-c465-11cf-8056-444553540000}</code></li>
+</ul>
+<p>To locate a custom GUID for any other device:</p>
+<ol type="1">
+<li>Open <strong>Device Manager</strong>
+(<code>devmgmt.msc</code>).</li>
+<li>Right-click the target device and select
+<strong>Properties</strong>.</li>
+<li>Go to the <strong>Details</strong> tab.</li>
+<li>In the <em>Property</em> dropdown, select <strong>Class
+Guid</strong>.</li>
+<li>Copy the value including the curly braces.</li>
+</ol>
+<hr />
+<h3 id="step-2-configure-registry-policies">Step 2: Configure Registry
+Policies</h3>
+<ol type="1">
+<li><p>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</p></li>
+<li><p>Navigate to the following path:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows</code></pre></li>
+<li><p>Check if the <strong>DeviceInstall</strong> key exists under
+<code>Windows</code>. If not:</p>
+<ul>
+<li>Right-click <code>Windows</code> &gt; <strong>New</strong> &gt;
+<strong>Key</strong>.</li>
+<li>Name it <code>DeviceInstall</code>.</li>
+</ul></li>
+<li><p>Right-click <code>DeviceInstall</code> &gt; <strong>New</strong>
+&gt; <strong>Key</strong> and name it
+<code>Restrictions</code>.</p></li>
+<li><p>Inside the <code>Restrictions</code> key:</p>
+<ul>
+<li>Right-click on the right pane &gt; <strong>New</strong> &gt;
+<strong>DWORD (32-bit) Value</strong>.</li>
+<li>Name it <code>DenyDeviceClasses</code>.</li>
+<li>Double-click it and set its <strong>Value data</strong> to
+<code>1</code>.</li>
+<li><em>(Optional)</em> To also apply this restriction to devices that
+are already installed, create another <strong>DWORD (32-bit)
+Value</strong> named <code>DenyDeviceClassesRetroactive</code> and set
+its <strong>Value data</strong> to <code>1</code>.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="step-3-add-the-target-class-guid-to-the-blocklist">Step 3: Add
+the Target Class GUID to the Blocklist</h3>
+<ol type="1">
+<li>Under the <code>Restrictions</code> key, create a new subkey:
+<ul>
+<li>Right-click <code>Restrictions</code> &gt; <strong>New</strong> &gt;
+<strong>Key</strong>.</li>
+<li>Name it <code>DenyDeviceClasses</code>.</li>
+</ul></li>
+<li>Select the newly created <code>DenyDeviceClasses</code> key.</li>
+<li>In the right pane, create string values for each class you want to
+block:
+<ul>
+<li>Right-click &gt; <strong>New</strong> &gt; <strong>String
+Value</strong>.</li>
+<li>Name the string <code>1</code> (for additional classes, increment
+the names to <code>2</code>, <code>3</code>, etc.).</li>
+<li>Double-click <code>1</code> and set its <strong>Value data</strong>
+to the GUID of the device class (e.g.,
+<code>{ca3e7ab9-b4c3-4ae6-8251-579ef933890f}</code>).</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="step-4-apply-the-changes">Step 4: Apply the Changes</h3>
+<ol type="1">
+<li><p>Close the Registry Editor.</p></li>
+<li><p>Open <strong>Command Prompt</strong> as Administrator and run the
+following command to refresh local policies:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gpupdate <span class="at">/force</span></span></code></pre></div></li>
+<li><p>Restart the computer for all settings to take full
+effect.</p></li>
+</ol>
+<p>Once configured, any attempt to install drivers or connect new
+devices belonging to the specified class GUID will be blocked by
+Windows.</p></article>
+        <div id="comments-container"></div>
+        <script>
+            const utterancesScript = document.createElement('script');
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/regedit'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            utterancesScript.setAttribute('theme', currentTheme === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+        </div>
+    </div>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="https://smvc.dev/contact">Contact</a></li>
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
