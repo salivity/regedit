@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows DLL Search Order Registry Settings - regedit</title>
+    <meta name="description" content="Windows controls system-wide dynamic link library (DLL) search path behaviors primarily through the Session Manager key in the Windows Registry. This article explains the exact registry locations and values used to define, secure, and customize how the op">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/windows-dll-search-order-registry-settings">
+    <link rel="search" type="application/opensearchdescription+xml" title="regedit" href="/regedit/opensearch.xml">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Windows DLL Search Order Registry Settings - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/windows-dll-search-order-registry-settings" />
+    <meta property="og:image" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Windows controls system-wide dynamic link library (DLL) search path behaviors primarily through the Session Manager key in the Windows Registry. This article explains the exact registry locations and values used to define, secure, and customize how the op" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+    <div class="article-layout">
+        <aside id="profile-sidebar" class="profile-column" aria-label="Author Profile"></aside>
+        <div class="article-main-column">
+            <article><h1 id="windows-dll-search-order-registry-settings">Windows DLL Search
+Order Registry Settings</h1>
+<p>Windows controls system-wide dynamic link library (DLL) search path
+behaviors primarily through the <code>Session Manager</code> key in the
+Windows Registry. This article explains the exact registry locations and
+values used to define, secure, and customize how the operating system
+resolves and loads DLL files across all applications.</p>
+<h2 id="primary-dll-search-path-registry-location">Primary DLL Search
+Path Registry Location</h2>
+<p>The core registry path governing system-wide DLL loading behavior
+is:</p>
+<p><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager</code></p>
+<p>Within this key, several values dictate how Windows traverses
+directories to find requested DLL files.</p>
+<hr />
+<h3 id="1-safe-dll-search-mode-safedllsearchmode">1. Safe DLL Search
+Mode (<code>SafeDllSearchMode</code>)</h3>
+<p>Safe DLL Search Mode determines the order in which the current
+working directory is evaluated relative to system directories.</p>
+<ul>
+<li><strong>Path:</strong>
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager</code></li>
+<li><strong>Value Name:</strong> <code>SafeDllSearchMode</code></li>
+<li><strong>Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Values:</strong>
+<ul>
+<li><code>1</code> (Enabled / Default): Moves the current working
+directory down the search order, prioritizing the system directory
+(<code>System32</code>) and Windows directory first.</li>
+<li><code>0</code> (Disabled): Places the current directory immediately
+after the application's loading directory, increasing vulnerability to
+DLL hijacking.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="2-known-dlls-knowndlls">2. Known DLLs
+(<code>KnownDLLs</code>)</h3>
+<p>The operating system checks a pre-approved list of core system
+libraries before initiating standard search path routines.</p>
+<ul>
+<li><strong>Path:</strong>
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs</code></li>
+<li><strong>Type:</strong> Subkey containing multiple
+<code>REG_SZ</code> entries</li>
+<li><strong>Behavior:</strong> Any DLL defined here (such as
+<code>kernel32.dll</code> or <code>user32.dll</code>) is loaded directly
+from the system directory without searching alternative paths,
+preventing unauthorized overrides.</li>
+</ul>
+<hr />
+<h3
+id="3-restricting-current-working-directory-dll-loading-cwdillegalindllsearch">3.
+Restricting Current Working Directory DLL Loading
+(<code>CWDIllegalInDllSearch</code>)</h3>
+<p>To mitigate DLL preloading attacks, administrators can restrict
+dynamic library loading from WebDAV or local current working
+directories.</p>
+<ul>
+<li><strong>Path:</strong>
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager</code></li>
+<li><strong>Value Name:</strong> <code>CWDIllegalInDllSearch</code></li>
+<li><strong>Type:</strong> <code>REG_DWORD</code></li>
+<li><strong>Values:</strong>
+<ul>
+<li><code>0</code> (Default): Uses standard DLL search logic.</li>
+<li><code>1</code>: Removes the current directory from the search path
+if the directory is on a network share.</li>
+<li><code>2</code>: Completely removes the current directory from the
+DLL search path for all loaded modules.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="application-specific-dll-search-paths">Application-Specific DLL
+Search Paths</h2>
+<p>In addition to system-wide search order flags, individual executable
+search paths are configured under the <code>App Paths</code> key:</p>
+<ul>
+<li><strong>Path:</strong>
+<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\&lt;ExecutableName.exe&gt;</code></li>
+<li><strong>Value Name:</strong> <code>Path</code></li>
+<li><strong>Type:</strong> <code>REG_SZ</code> or
+<code>REG_EXPAND_SZ</code></li>
+<li><strong>Behavior:</strong> Specifies dedicated directory paths
+appended to the process DLL search order when the named executable
+launches.</li>
+</ul></article>
+        <div id='disqus_thread'></div>
+        <script>
+
+            var disqus_config = function () {
+                this.page.url =         'https://salivity.github.io/regedit/article/windows-dll-search-order-registry-settings';  
+                //this.page.identifier =  PAGE_IDENTIFIER; 
+            };
+            
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://salivity-github-io.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+        </div>
+    </div>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="https://smvc.dev/contact">Contact</a></li>
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

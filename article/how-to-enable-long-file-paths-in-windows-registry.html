@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Enable Long File Paths in Windows Registry - regedit</title>
+    <meta name="description" content="By default, the Windows operating system enforces a legacy 260-character limit on file paths, known as MAXPATH. This article outlines the specific Windows Registry key and DWORD value used to remove this limitation system-wide, allowing compatible applica">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/how-to-enable-long-file-paths-in-windows-registry">
+    <link rel="search" type="application/opensearchdescription+xml" title="regedit" href="/regedit/opensearch.xml">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Enable Long File Paths in Windows Registry - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/how-to-enable-long-file-paths-in-windows-registry" />
+    <meta property="og:image" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="By default, the Windows operating system enforces a legacy 260-character limit on file paths, known as MAXPATH. This article outlines the specific Windows Registry key and DWORD value used to remove this limitation system-wide, allowing compatible applica" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+    <div class="article-layout">
+        <aside id="profile-sidebar" class="profile-column" aria-label="Author Profile"></aside>
+        <div class="article-main-column">
+            <article><h1 id="how-to-enable-long-file-paths-in-windows-registry">How to Enable
+Long File Paths in Windows Registry</h1>
+<p>By default, the Windows operating system enforces a legacy
+260-character limit on file paths, known as <code>MAX_PATH</code>. This
+article outlines the specific Windows Registry key and DWORD value used
+to remove this limitation system-wide, allowing compatible applications
+and processes to create and read file paths up to 32,767 characters.</p>
+<h3 id="the-registry-setting-for-max_path-override">The Registry Setting
+for MAX_PATH Override</h3>
+<p>To enable long file paths system-wide, modify the
+<strong><code>LongPathsEnabled</code></strong> value located within the
+<code>FileSystem</code> registry key.</p>
+<ul>
+<li><strong>Registry Key Path:</strong><br />
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem</code></li>
+<li><strong>Value Name:</strong><br />
+<code>LongPathsEnabled</code></li>
+<li><strong>Value Type:</strong><br />
+<code>REG_DWORD</code> (32-bit Value)</li>
+<li><strong>Value Data:</strong>
+<ul>
+<li><code>1</code> = Long file paths enabled (bypasses
+<code>MAX_PATH</code>)</li>
+<li><code>0</code> = Long file paths disabled (standard 260-character
+limit enforced)</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="step-by-step-configuration-using-regedit">Step-by-Step
+Configuration Using Regedit</h3>
+<ol type="1">
+<li><p>Press <code>Win + R</code>, type <code>regedit</code>, and press
+<strong>Enter</strong> to open the Registry Editor.</p></li>
+<li><p>Navigate to the following location:</p>
+<pre class="text"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem</code></pre></li>
+<li><p>Locate the value named
+<strong><code>LongPathsEnabled</code></strong> in the right-hand
+pane.<br />
+<em>(If it does not exist, right-click an empty area, select <strong>New
+&gt; DWORD (32-bit) Value</strong>, and name it
+<code>LongPathsEnabled</code>.)</em></p></li>
+<li><p>Double-click <strong><code>LongPathsEnabled</code></strong>,
+change the <strong>Value data</strong> field from <code>0</code> to
+<strong><code>1</code></strong>, and ensure the Base is set to
+<strong>Hexadecimal</strong> or <strong>Decimal</strong>.</p></li>
+<li><p>Click <strong>OK</strong>.</p></li>
+<li><p>Restart your computer or sign out and back in for the changes to
+take full effect across all system processes.</p></li>
+</ol>
+<hr />
+<h3 id="enabling-long-paths-via-powershell-administrator">Enabling Long
+Paths via PowerShell (Administrator)</h3>
+<p>Alternatively, you can apply this registry setting directly using an
+elevated PowerShell prompt:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-ItemProperty</span> <span class="op">-</span>Path <span class="st">&quot;HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem&quot;</span> <span class="op">-</span>Name <span class="st">&quot;LongPathsEnabled&quot;</span> <span class="op">-</span>Value <span class="dv">1</span></span></code></pre></div>
+<h3 id="important-considerations">Important Considerations</h3>
+<ul>
+<li><strong>OS Requirements:</strong> This feature is natively supported
+in Windows 10 (Version 1607 and later), Windows 11, and Windows Server
+2016 and later.</li>
+<li><strong>Application Support:</strong> Enabling this registry setting
+permits long paths system-wide, but individual Win32 applications must
+still include a long-path-aware manifest entry
+(<code>longPathAware</code>) to access extended paths without using the
+<code>\\?\</code> prefix.</li>
+</ul></article>
+        <div id='disqus_thread'></div>
+        <script>
+
+            var disqus_config = function () {
+                this.page.url =         'https://salivity.github.io/regedit/article/how-to-enable-long-file-paths-in-windows-registry';  
+                //this.page.identifier =  PAGE_IDENTIFIER; 
+            };
+            
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://salivity-github-io.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+        </div>
+    </div>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="https://smvc.dev/contact">Contact</a></li>
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
