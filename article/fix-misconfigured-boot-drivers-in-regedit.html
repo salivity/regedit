@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Misconfigured Boot Drivers in Regedit - regedit</title>
+    <meta name="description" content="When critical storage or boot drivers are misconfigured in the Windows Registry, the operating system fails to initialize the boot volume, typically resulting in an INACCESSIBLEBOOTDEVICE Blue Screen of Death (BSOD). This guide explains how to recover an">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/fix-misconfigured-boot-drivers-in-regedit">
+    <link rel="search" type="application/opensearchdescription+xml" title="regedit" href="/regedit/opensearch.xml">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fix Misconfigured Boot Drivers in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/fix-misconfigured-boot-drivers-in-regedit" />
+    <meta property="og:image" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When critical storage or boot drivers are misconfigured in the Windows Registry, the operating system fails to initialize the boot volume, typically resulting in an INACCESSIBLEBOOTDEVICE Blue Screen of Death (BSOD). This guide explains how to recover an" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+    <div class="article-layout">
+        <aside id="profile-sidebar" class="profile-column" aria-label="Author Profile"></aside>
+        <div class="article-main-column">
+            <article><h1 id="fix-misconfigured-boot-drivers-in-regedit">Fix Misconfigured
+Boot Drivers in Regedit</h1>
+<p>When critical storage or boot drivers are misconfigured in the
+Windows Registry, the operating system fails to initialize the boot
+volume, typically resulting in an <code>INACCESSIBLE_BOOT_DEVICE</code>
+Blue Screen of Death (BSOD). This guide explains how to recover an
+unbootable system by accessing the Windows Recovery Environment (WinRE),
+loading the offline registry hive, and resetting the affected driver
+service startup values to their required operational state.</p>
+<h3
+id="method-1-edit-the-offline-registry-via-windows-recovery-environment">Method
+1: Edit the Offline Registry via Windows Recovery Environment</h3>
+<p>When Windows cannot boot normally, you must edit the registry from
+the Windows Recovery Environment (WinRE) using a temporary hive.</p>
+<ol type="1">
+<li><strong>Access WinRE Command Prompt:</strong>
+<ul>
+<li>Power on your computer and interrupt the boot process three
+consecutive times (by holding the power button), or boot from a Windows
+installation USB drive and select <strong>Repair your
+computer</strong>.</li>
+<li>Navigate to <strong>Troubleshoot</strong> &gt; <strong>Advanced
+options</strong> &gt; <strong>Command Prompt</strong>.</li>
+</ul></li>
+<li><strong>Identify the System Drive Letter:</strong>
+<ul>
+<li>In the Command Prompt, type <code>diskpart</code> and press Enter,
+then type <code>list volume</code> to identify your Windows installation
+partition letter (in recovery mode, it may be assigned <code>D:</code>
+or <code>E:</code> instead of <code>C:</code>).</li>
+<li>Type <code>exit</code> to return to the standard command
+prompt.</li>
+</ul></li>
+<li><strong>Open and Load the Offline Registry Hive:</strong>
+<ul>
+<li>Type <code>regedit</code> in the Command Prompt and press
+Enter.</li>
+<li>In the Registry Editor, click to highlight
+<strong>HKEY_LOCAL_MACHINE</strong>.</li>
+<li>Click <strong>File</strong> in the top menu and select <strong>Load
+Hive...</strong>.</li>
+<li>Navigate to your Windows installation drive (e.g.,
+<code>C:\Windows\System32\config\SYSTEM</code>).</li>
+<li>When prompted for a Key Name, enter a temporary identifier, such as
+<code>OfflineSystem</code>.</li>
+</ul></li>
+<li><strong>Correct the Driver Start Type:</strong>
+<ul>
+<li>Expand
+<code>HKEY_LOCAL_MACHINE\OfflineSystem\ControlSet001\Services\</code>.</li>
+<li>Locate the misconfigured driver service (for example:
+<code>storahci</code>, <code>iaStorV</code>, <code>nvme</code>,
+<code>stornvme</code>, or <code>volsnap</code>).</li>
+<li>Double-click the <strong>Start</strong> DWORD value in the right
+pane.</li>
+<li>Change the value data to <strong>0</strong> (which designates a
+Boot-level critical driver).</li>
+<li>Click <strong>OK</strong>.</li>
+</ul></li>
+<li><strong>Unload the Hive and Reboot:</strong>
+<ul>
+<li>Click to select the <code>OfflineSystem</code> key you created under
+<strong>HKEY_LOCAL_MACHINE</strong>.</li>
+<li>Click <strong>File</strong> &gt; <strong>Unload Hive...</strong> and
+confirm by clicking <strong>Yes</strong>.</li>
+<li>Close the Registry Editor, close the Command Prompt, and click
+<strong>Continue</strong> to boot into Windows normally.</li>
+</ul></li>
+</ol>
+<hr />
+<h3 id="method-2-restore-registry-via-system-restore">Method 2: Restore
+Registry via System Restore</h3>
+<p>If you are unsure which specific driver value was modified, you can
+restore a previous registry state:</p>
+<ol type="1">
+<li>Boot into <strong>WinRE</strong>.</li>
+<li>Go to <strong>Troubleshoot</strong> &gt; <strong>Advanced
+options</strong> &gt; <strong>System Restore</strong>.</li>
+<li>Select an available restore point created prior to the registry
+modification.</li>
+<li>Follow the on-screen prompts to restore system files and registry
+configurations to a working state.</li>
+</ol></article>
+        <div id='disqus_thread'></div>
+        <script>
+
+            var disqus_config = function () {
+                this.page.url =         'https://salivity.github.io/regedit/article/fix-misconfigured-boot-drivers-in-regedit';  
+                //this.page.identifier =  PAGE_IDENTIFIER; 
+            };
+            
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://salivity-github-io.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+        </div>
+    </div>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="https://smvc.dev/contact">Contact</a></li>
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

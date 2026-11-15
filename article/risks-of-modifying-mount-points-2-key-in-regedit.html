@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risks of Modifying MountPoints2 Key in Regedit - regedit</title>
+    <meta name="description" content="Modifying or deleting the MountPoints2 registry key in Windows is often done to clear USB connection history, resolve drive letter conflicts, or reset mapped network shares. However, altering this key directly through the Registry Editor (Regedit) carries">
+    <link rel="canonical" href="https://salivity.github.io/regedit/article/risks-of-modifying-mount-points-2-key-in-regedit">
+    <link rel="search" type="application/opensearchdescription+xml" title="regedit" href="/regedit/opensearch.xml">
+    <link rel="icon" href="/regedit/favicon.ico">
+    <link rel="stylesheet" href="/regedit/css/style.css">
+    <link media="print" rel="stylesheet" href="/regedit/css/print.css">
+    <script src="/regedit/js/fuse.min.js"></script>
+    <script src="/regedit/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Risks of Modifying MountPoints2 Key in Regedit - regedit" />
+    <meta property="og:url" content="https://salivity.github.io/regedit/article/risks-of-modifying-mount-points-2-key-in-regedit" />
+    <meta property="og:image" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/regedit/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Modifying or deleting the MountPoints2 registry key in Windows is often done to clear USB connection history, resolve drive letter conflicts, or reset mapped network shares. However, altering this key directly through the Registry Editor (Regedit) carries" />
+    <link rel="manifest" href="/regedit/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/regedit/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>regedit</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/regedit/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+    <div class="article-layout">
+        <aside id="profile-sidebar" class="profile-column" aria-label="Author Profile"></aside>
+        <div class="article-main-column">
+            <article><h1 id="risks-of-modifying-mountpoints2-key-in-regedit">Risks of
+Modifying MountPoints2 Key in Regedit</h1>
+<p>Modifying or deleting the <code>MountPoints2</code> registry key in
+Windows is often done to clear USB connection history, resolve drive
+letter conflicts, or reset mapped network shares. However, altering this
+key directly through the Registry Editor (Regedit) carries several
+distinct operational and system risks. Because <code>MountPoints2</code>
+manages how the operating system tracks, mounts, and configures
+user-specific removable and network storage, unauthorized or improper
+changes can lead to broken drive mappings, lost preferences, and shell
+instability.</p>
+<h3 id="understanding-the-mountpoints2-key">Understanding the
+MountPoints2 Key</h3>
+<p>Located at
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2</code>,
+this registry branch stores cached information regarding every volume,
+CD/DVD, USB drive, and mapped network share connected to a specific user
+account. It maintains device unique identifiers (UUIDs), AutoRun
+actions, drive icons, and folder configurations.</p>
+<h3 id="key-risks-of-modifying-mountpoints2">Key Risks of Modifying
+MountPoints2</h3>
+<h4 id="1-loss-of-persistent-network-drive-mappings">1. Loss of
+Persistent Network Drive Mappings</h4>
+<p>The <code>MountPoints2</code> subkeys hold vital connection
+parameters for shared network folders. Deleting or altering these
+subkeys can immediately sever remembered credentials, disconnect mapped
+drives, and prevent the system from automatically reconnecting to
+network resources upon boot.</p>
+<h4 id="2-disruption-of-removable-media-behavior">2. Disruption of
+Removable Media Behavior</h4>
+<p>Windows relies on cached data in this key to determine AutoPlay and
+AutoRun behavior for specific devices. Modifying these entries can
+cause:</p>
+<ul>
+<li>Failure of customized AutoPlay prompts.</li>
+<li>Inability to remember assigned drive icons or volume labels.</li>
+<li>Delays when connecting previously recognized USB drives as Windows
+attempts to rebuild the volume metadata.</li>
+</ul>
+<h4 id="3-broken-shortcuts-and-recent-file-paths">3. Broken Shortcuts
+and Recent File Paths</h4>
+<p>Many Windows applications, including File Explorer, cache direct
+volume paths referenced within <code>MountPoints2</code>. Clearing or
+corrupting this key can break shortcuts pinned to the Quick Access menu,
+clear recent document histories linked to external storage, and disrupt
+software that depends on static device identifiers.</p>
+<h4 id="4-windows-explorer-and-shell-instability">4. Windows Explorer
+and Shell Instability</h4>
+<p>Incorrectly editing binary values or permissions within
+<code>MountPoints2</code> can cause Windows Explorer
+(<code>explorer.exe</code>) to crash, hang, or fail to refresh connected
+storage devices in the "This PC" view. If Explorer cannot read a
+corrupted entry, it may enter a crash loop upon volume detection.</p>
+<h4
+id="5-accidental-override-of-group-policy-and-security-configurations">5.
+Accidental Override of Group Policy and Security Configurations</h4>
+<p>In managed enterprise environments, administrators use
+<code>MountPoints2</code> policies to restrict execution of scripts or
+binaries from removable drives. Deleting or modifying subkeys can
+inadvertently strip these security configurations until the next Group
+Policy update, potentially exposing the workstation to unauthorized
+AutoRun scripts.</p>
+<h3 id="safe-modification-best-practices">Safe Modification Best
+Practices</h3>
+<p>If modification of the <code>MountPoints2</code> key is necessary for
+troubleshooting:</p>
+<ul>
+<li><strong>Export a Backup:</strong> Always right-click the
+<code>MountPoints2</code> key and select <strong>Export</strong> to
+create a <code>.reg</code> backup before deleting or changing
+values.</li>
+<li><strong>Target Specific Subkeys:</strong> Avoid deleting the root
+<code>MountPoints2</code> folder; remove only the specific device or
+network GUID causing the conflict.</li>
+<li><strong>Restart Explorer:</strong> Restart the Windows Explorer
+process or log out of the user account after making edits to ensure the
+registry caches reload cleanly.</li>
+</ul></article>
+        <div id='disqus_thread'></div>
+        <script>
+
+            var disqus_config = function () {
+                this.page.url =         'https://salivity.github.io/regedit/article/risks-of-modifying-mount-points-2-key-in-regedit';  
+                //this.page.identifier =  PAGE_IDENTIFIER; 
+            };
+            
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://salivity-github-io.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+        </div>
+    </div>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="https://smvc.dev/contact">Contact</a></li>
+                <li><a href="/regedit/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/regedit/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
